@@ -39,12 +39,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const birthInput = document.getElementById('birthdate');
     const postInput = document.getElementById('postcode');
     const cityInput = document.getElementById('city');
-    
+
     // Namen der Radio-Gruppen (für einfaches Speichern/Laden)
     const radioGroupNames = ['a1', 'jobStatus', 'damageStatus'];
 
     // --- 2. EVENT LISTENERS ZUM SPEICHERN (localStorage) ---
-    
+
     // Textfelder speichern (Input ließt jede Veränderung)
     birthInput.addEventListener('input', () => localStorage.setItem('userBirthdate', birthInput.value));
     postInput.addEventListener('input', () => localStorage.setItem('userPostcode', postInput.value));
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
     loadSavedData();
 
     // --- 6. HAUPT-FUNKTIONEN ---
-    
+
     // Funktion zur Berechnung
     function calculate() {
 
@@ -160,11 +160,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Öffentlicher Dienst Prüfung
         const jobChecked = document.querySelector('input[name="jobStatus"]:checked');
-        
+
         if (!jobChecked) {
-           resultBox.innerHTML = `<p class="error-text">Bitte gib an, ob du beim <strong>öffentlichen Dienst</strong> bist!</p>`;
-           resultBox.classList.add('is-visible');
-           return;
+            resultBox.innerHTML = `<p class="error-text">Bitte gib an, ob du beim <strong>öffentlichen Dienst</strong> bist!</p>`;
+            resultBox.classList.add('is-visible');
+            return;
         };
 
         if (jobChecked.value === 'yes') {
@@ -183,9 +183,14 @@ document.addEventListener('DOMContentLoaded', function () {
             basicPrice *= DISCOUNT_NO_DAMAGE;
         };
 
-        resultBox.innerHTML = `<p class="result-text">Deine Haftpflichtversicherung würde dich jährlich ${basicPrice.toFixed(2)}€ kosten.</p>`; // Ergebnis der Berechnung
+        const resultText = "Deine Haftpflichtversicherung kostet dich jährlich:";
+        const Price = `${basicPrice.toFixed(2)}€`;
+        resultBox.innerHTML = `
+        <p class="result-text">${resultText}</p>
+        <div class="result-price">${Price}</div>
+        `;
         resultBox.classList.add('is-visible');
-    }
+    };
 
     // Reset Funktion
     function reset() {
@@ -197,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
         radioBtns.forEach(radio => {
             radio.checked = false;
         });
-        
+
         resultBox.innerHTML = '';
         resultBox.classList.remove('is-visible');
         localStorage.clear(); // Lösche alle gespeicherten Daten
