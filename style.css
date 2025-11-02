@@ -1,0 +1,97 @@
+body {
+    display: grid;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #c6ddf5;
+}
+
+h1 {
+    display: flex;
+    color: #ff9900;
+    justify-content: center;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+main {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#bStart {
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 5px;
+    font-weight: bolder;
+    margin-top: 20px;
+}
+
+#bReset {
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 5px;
+    font-weight: bolder;
+    margin-top: 20px;
+}
+
+#bStart:hover {
+    background-color: #ff9900;
+    color: black;
+}
+
+#bReset:hover {
+    background-color: #ff9900;
+    color: black;
+}
+
+#who_options {
+    display: flex;
+    align-items: center;
+}
+
+.a1 {
+    border: solid #ff9900;
+    border-style: double;
+    margin: auto;
+    padding: 10px;
+}
+
+.in1,
+#jobYes,
+#jobNo,
+#damageYes,
+#damageNo {
+    cursor: pointer;
+}
+
+.answer1 {
+    font-weight: bolder;
+}
+
+#birthdate {
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.answer3 {
+    font-size: 15px;
+    font-weight: bolder;
+}
+#result{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid #ff9900;
+    border-style: double;
+    margin: 30px;
+    padding: 10px;
+    font-size: 1.2rem;
+}
