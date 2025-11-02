@@ -50,10 +50,10 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
             return;
         }
         if (whoChecked) {
-            const who = whoChecked.id; // Die ID der radio Buttons werden gelesen
-            if (who === `a1b2`) basicPrice += SURCHARGE_CHILD; // Aufschlag für ein Kind/er
-            else if (who === `a1b3`) basicPrice += SURCHARGE_COUPLE; // Aufschlag für Partner
-            else if (who === `a1b4`) basicPrice += SURCHARGE_FAMILY; // Aufschlag für Partner mit Kind/er
+            const who = whoChecked.value;
+            if (who === `child`) basicPrice += SURCHARGE_CHILD; // Aufschlag für ein Kind/er
+            else if (who === `couple`) basicPrice += SURCHARGE_COUPLE; // Aufschlag für Partner
+            else if (who === `family`) basicPrice += SURCHARGE_FAMILY; // Aufschlag für Partner mit Kind/er
         };
 
         // Geburtsdatum Prüfung
@@ -100,25 +100,26 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
         }
 
         // Öffentlicher Dienst Prüfung
-        const jobYes = document.getElementById("jobYes").checked;
-        const jobNo = document.getElementById("jobNo").checked;
-        if (!jobYes && !jobNo) {
-            resultBox.innerHTML = `<p>Bitte gib ab ob du beim <strong>öffetlicher Dienst</strong> bist!</p>`;
+        const jobChecked = document.querySelector(`input[name="jobStatus"]:checked`);
+        
+        if (!jobChecked) {
+           resultBox.innerHTML = `<p>Bitte gib ab ob du beim <strong>öffetlicher Dienst</strong> bist!</p>`;
             return;
         };
-        if (jobYes) {
+
+        if (jobChecked.value === "yes" ) {
             basicPrice *= DISCOUNT_JOB;
         };
 
 
         // Schadensprüfung (5 Jahre)
-        const damageYes = document.getElementById("damageYes").checked;
-        const damageNo = document.getElementById("damageNo").checked;
-        if (!damageYes && !damageNo) {
+        const damageCecked = document.querySelector(`input[name="damageStatus"]:checked`);
+
+        if (!damageCecked) {
             resultBox.innerHTML = `<p>Bitte gib ab ob du die letzen 5 Jahre <strong>Schadensfrei</strong> warst!</p>`;
             return;
         };
-        if (damageYes) {
+        if (damageCecked.value === "yes") {
             basicPrice *= DISCOUNT_NO_DAMAGE;
         };
 

@@ -18,19 +18,19 @@
             <h3 id="q1_h3">Wer wird versichert?</h3>
             <div id="who_options">
                 <div id="me" class="a1">
-                    <input type="radio" name="a1" id="a1b1" class="in1" autocomplete="off">
+                    <input type="radio" name="a1" id="a1b1" class="in1" autocomplete="off" value="single">
                     <label for="a1b1">Ich</label>
                 </div>
                 <div id="me_child" class="a1">
-                    <input type="radio" name="a1" id="a1b2" class="in1" autocomplete="off">
+                    <input type="radio" name="a1" id="a1b2" class="in1" autocomplete="off" value="child">
                     <label for="a1b2">Ich und Kind/er </label>
                 </div>
                 <div id="couple_child" class="a1">
-                    <input type="radio" name="a1" id="a1b3" class="in1" autocomplete="off">
+                    <input type="radio" name="a1" id="a1b3" class="in1" autocomplete="off" value="couple">
                     <label for="a1b3">Paar ohne Kind/er</label>
                 </div>
                 <div id="family" class="a1">
-                    <input type="radio" name="a1" id="a1b4" class="in1" autocomplete="off">
+                    <input type="radio" name="a1" id="a1b4" class="in1" autocomplete="off" value="family">
                     <label for="a1b4">Familie</label>
                 </div>
             </div>
@@ -46,22 +46,22 @@
         </div>
         <div class="job">
             <h3>Arbeiten sie im öffentlichen Dienst?</h3>
-            <input type="radio" name="jobStatus" id="jobYes" autocomplete="off">
+            <input type="radio" name="jobStatus" id="jobYes" autocomplete="off" value="yes">
             <label for="jobYes" class="jobYesP">Ja</label> <br>
-            <input type="radio" name="jobStatus" id="jobNo" autocomplete="off">
+            <input type="radio" name="jobStatus" id="jobNo" autocomplete="off" value="no">
             <label for="jobNo" class="jobNoP">Nein</label>
         </div>
         <div>
             <h3>Waren Sie in den letzten 5 Jahren in der Privathaftpflicht schadenfrei?</h3>
-            <input type="radio" name="noDamage" id="damageYes" autocomplete="off">
+            <input type="radio" name="damageStatus" id="damageYes" autocomplete="off" value="yes">
             <label for="damageYes" class="jobYesP">Ja</label> <br>
-            <input type="radio" name="noDamage" id="damageNo" autocomplete="off">
+            <input type="radio" name="damageStatus" id="damageNo" autocomplete="off" value="no">
             <label for="damageNo" class="jobNoP">Nein</label>
         </div>
         <div id="result">
         </div>
-        <button id="bStart">Klicke hier um die Berechnung zu starten!</button>
-        <button id="bReset">Eingaben zurücksetzen!</button>
+        <button id="bStart" type="button">Klicke hier um die Berechnung zu starten!</button>
+        <button id="bReset" type="button">Eingaben zurücksetzen!</button>
     </main>
     <footer></footer>
     <script src="script.js"></script>
