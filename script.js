@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werden vor Java Script geladen, damit keine Fehler passieren indem JS sachen lesen will, die es noch nicht gibt.
+// HTML und CSS werden vor Java Script geladen, damit keine Fehler passieren indem JS sachen lesen will, die es noch nicht gibt.
+document.addEventListener('DOMContentLoaded', function () {
 
     // --- GESCHÄFTSLOGIK & REGELN ---
-
     const BASE_PRICE = 60; // 60€ Grundpreis
 
     // Tarifgruppen-Aufschläge
@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
     const SURCHARGE_COLOGNE = 16; // Aufschlag Köln
 
     // PLZ-Arrays 
-    const ZIP_BERLIN = ["10", "11", "12", "13", "14"];
-    const ZIP_MUNICH = ["80", "81"];
-    const ZIP_COLOGNE = ["50", "51"];
+    const ZIP_BERLIN = ['10', '11', '12', '13', '14'];
+    const ZIP_MUNICH = ['80', '81'];
+    const ZIP_COLOGNE = ['50', '51'];
 
     // Rabatte
     const DISCOUNT_JOB = 0.9;    // 10% Rabatt (Öffentl. Dienst)
@@ -31,40 +31,91 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
 
     // --- ENDE REGELN ---
 
+    // --- 1. ALLE ELEMENTE EINMAL FINDEN ---
+    const btnCalculate = document.getElementById('bStart'); // Button zur Berechnung wird gelesen
+    const btnReset = document.getElementById('bReset'); // Button um die Einstellungen zu löschen
+    const resultBox = document.getElementById('result');
 
-    const btnCalculate = document.getElementById(`bStart`); // Button zur Berechnung wird gelesen
-    const btnReset = document.getElementById(`bReset`); // Button um die Einstellungen zu löschen
-    btnCalculate.addEventListener(`click`, calculate); // Button zu Berechnung wird überwacht und bringt unsere Funktion in gang, welche durch einen Klick auf den Button gestartet wird
+    const birthInput = document.getElementById('birthdate');
+    const postInput = document.getElementById('postcode');
+    const cityInput = document.getElementById('city');
+    
+    // Namen der Radio-Gruppen (für einfaches Speichern/Laden)
+    const radioGroupNames = ['a1', 'jobStatus', 'damageStatus'];
+
+    // --- 2. EVENT LISTENERS ZUM SPEICHERN (localStorage) ---
+    
+    // Textfelder speichern (beim Tippen)
+    birthInput.addEventListener('input', () => localStorage.setItem('userBirthdate', birthInput.value));
+    postInput.addEventListener('input', () => localStorage.setItem('userPostcode', postInput.value));
+    cityInput.addEventListener('input', () => localStorage.setItem('userCity', cityInput.value));
+
+    // Radio-Buttons speichern (beim Ändern)
+    function saveRadioSelection(event) {
+        if (event.target.checked) {
+            // Speichert den WERT (z.B. "yes") unter dem NAMEN der Gruppe (z.B. "jobStatus")
+            localStorage.setItem(event.target.name, event.target.value);
+        }
+    }
+    // Füge diesen Listener zu allen Radio-Buttons hinzu
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', saveRadioSelection);
+    });
+
+    // --- 3. HAUPT-EVENT-LISTENERS (Buttons) ---
+    btnCalculate.addEventListener('click', calculate); // Button zu Berechnung wird überwacht...
     btnReset.addEventListener('click', reset);
-    const resultBox = document.getElementById("result");
 
+    // --- 4. DATEN LADEN FUNKTION (localStorage) ---
+    function loadSavedData() {
+        // Lade Textfelder
+        // (Das '|| '' ' ist ein "Fallback": Nimm das Gespeicherte ODER (||) einen leeren String)
+        birthInput.value = localStorage.getItem('userBirthdate') || '';
+        postInput.value = localStorage.getItem('userPostcode') || '';
+        cityInput.value = localStorage.getItem('userCity') || '';
+
+        // Lade Radio-Buttons
+        radioGroupNames.forEach(groupName => {
+            const savedValue = localStorage.getItem(groupName); // z.B. Lade den Wert für "jobStatus"
+            if (savedValue) { // z.B. "yes"
+                // Finde den Button, der diesen Namen UND diesen Wert hat
+                const radioToSelect = document.querySelector(`input[name="${groupName}"][value="${savedValue}"]`);
+                if (radioToSelect) {
+                    radioToSelect.checked = true; // Hake ihn an
+                }
+            }
+        });
+    }
+
+    // --- 5. LADE-FUNKTION AUFRUFEN ---
+    // Rufe die Funktion EINMAL beim Start auf
+    loadSavedData();
+
+    // --- 6. HAUPT-FUNKTIONEN ---
+    
     // Funktion zur Berechnung
     function calculate() {
 
         let basicPrice = BASE_PRICE; // Das ist unser Grundpreis für die Versicherung
 
         // Tarifgruppe
-        const whoChecked = document.querySelector(`input[name="a1"]:checked`); // Die radio Buttons werden gelesen
+        const whoChecked = document.querySelector('input[name="a1"]:checked'); // Die radio Buttons werden gelesen
 
         if (!whoChecked) { // Die Berechnung wird gestoppt, wenn keine Tariffgruppe ausgewäht wurde
-            resultBox.innerHTML = `<p>Bitte wähle aus, <strong>wer versichert</strong> werden soll!</p>`;
+            resultBox.innerHTML = `<p class="error-text">Bitte wähle aus, <strong>wer versichert</strong> werden soll!</p>`;
             resultBox.classList.add('is-visible');
             return;
         }
-        if (whoChecked) {
-            const who = whoChecked.value;
-            if (who === `child`) basicPrice += SURCHARGE_CHILD; // Aufschlag für ein Kind/er
-            else if (who === `couple`) basicPrice += SURCHARGE_COUPLE; // Aufschlag für Partner
-            else if (who === `family`) basicPrice += SURCHARGE_FAMILY; // Aufschlag für Partner mit Kind/er
-        };
+        const who = whoChecked.value; // Wir brauchen kein 'if (whoChecked)' mehr, da wir oben schon mit 'return' stoppen
+        if (who === 'child') basicPrice += SURCHARGE_CHILD; // Aufschlag für ein Kind/er
+        else if (who === 'couple') basicPrice += SURCHARGE_COUPLE; // Aufschlag für Partner
+        else if (who === 'family') basicPrice += SURCHARGE_FAMILY; // Aufschlag für Partner mit Kind/er
 
         // Geburtsdatum Prüfung
-        const birthInput = document.getElementById("birthdate");
         const birthValue = birthInput.value;
 
-
         if (!birthValue) {
-            resultBox.innerHTML = `<p>Bitte gib dein <strong>Geburtsdatum</strong> ein!</p>`;
+            resultBox.innerHTML = `<p class="error-text">Bitte gib dein <strong>Geburtsdatum</strong> ein!</p>`;
             resultBox.classList.add('is-visible');
             return; // Code wird beendet, wenn kein Geburtsdatum angegeben wird
         }
@@ -78,31 +129,30 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
             age--; // Es wird ein Jahr abgezogen, wenn man im aktuellen Jahr noch keinen Geburtstag hatte
         };
         if (age < MIN_AGE) {
-            resultBox.innerHTML = `<p>Du bist leider <strong>zu jung</strong> für einen Vertrag, komm gerne wieder zurück, wenn du <strong>Volljährig</strong> bist!</p>`;
+            resultBox.innerHTML = `<p class="error-text">Du bist leider <strong>zu jung</strong> für einen Vertrag...</p>`;
             resultBox.classList.add('is-visible');
-            return; 
+            return;
         }
         else if (age > MAX_AGE) {
-            resultBox.innerHTML = `<p>Du bist officiel der älteste Mensch, <strong>herzlichen Glückwunsch</strong> zu dieser Leistung. <br><strong>Kontaktiere</strong> uns bitte persöhnlich mit einem <strong>Brief</strong> oder <strong>Email</strong>.</p>`;
+            resultBox.innerHTML = `<p class="error-text">Du bist officiel der älteste Mensch... <br><strong>Kontaktiere</strong> uns bitte persöhnlich...</p>`;
             resultBox.classList.add('is-visible');
             return;
         }
         else if (age < RISK_AGE_LIMIT) {
             basicPrice *= RISK_FACTOR_U25;
-        }; // Aufschlag von 20% für jüngere Leute, da sie mehr Risiko ergeben
+        }; // Aufschlag von 20% für jüngere Leute...
 
         // Wohnort Prüfung
-        const postInput = document.getElementById(`postcode`);
-        const postValue = postInput.value; // Das Inputfeld wird gelesen und die Einheit als Variable ausgegeben
+        const postValue = postInput.value; // Das Inputfeld wird gelesen...
 
         if (!postValue) {
-            resultBox.innerHTML = `<p>Bitte gib deine <strong>Postleitzahl</strong> ein!</p>`;
+            resultBox.innerHTML = `<p class="error-text">Bitte gib deine <strong>Postleitzahl</strong> ein!</p>`;
             resultBox.classList.add('is-visible');
             return; // Code wird beendet, wenn keine PLZ angegeben wird
         }
 
         if (ZIP_BERLIN.some(plz => postValue.startsWith(plz))) {
-            basicPrice += SURCHARGE_BERLIN; // Das Array wird auf die ersten zwei Ziffern gescannt und löst einen Zuschlag für eine Großstand aus, falls If = true
+            basicPrice += SURCHARGE_BERLIN; // Das Array wird auf die ersten zwei Ziffern gescannt...
         } else if (ZIP_MUNICH.some(plz => postValue.startsWith(plz))) {
             basicPrice += SURCHARGE_MUNICH;
         } else if (ZIP_COLOGNE.some(plz => postValue.startsWith(plz))) {
@@ -110,47 +160,49 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
         }
 
         // Öffentlicher Dienst Prüfung
-        const jobChecked = document.querySelector(`input[name="jobStatus"]:checked`);
-
+        const jobChecked = document.querySelector('input[name="jobStatus"]:checked');
+        
         if (!jobChecked) {
-            resultBox.innerHTML = `<p>Bitte gib ab ob du beim <strong>öffetlicher Dienst</strong> bist!</p>`;
-            resultBox.classList.add('is-visible');
-            return;
+           resultBox.innerHTML = `<p class="error-text">Bitte gib an, ob du beim <strong>öffentlichen Dienst</strong> bist!</p>`;
+           resultBox.classList.add('is-visible');
+           return;
         };
 
-        if (jobChecked.value === "yes") {
+        if (jobChecked.value === 'yes') {
             basicPrice *= DISCOUNT_JOB;
         };
 
-
         // Schadensprüfung (5 Jahre)
-        const damageCecked = document.querySelector(`input[name="damageStatus"]:checked`);
+        const damageChecked = document.querySelector('input[name="damageStatus"]:checked'); // Tippfehler "Cecked" behoben
 
-        if (!damageCecked) {
-            resultBox.innerHTML = `<p>Bitte gib ab ob du die letzen 5 Jahre <strong>Schadensfrei</strong> warst!</p>`;
+        if (!damageChecked) {
+            resultBox.innerHTML = `<p class="error-text">Bitte gib an, ob du die letzten 5 Jahre <strong>Schadensfrei</strong> warst!</p>`;
             resultBox.classList.add('is-visible');
             return;
         };
-        if (damageCecked.value === "yes") {
+        if (damageChecked.value === 'yes') { // Logik-Fehler behoben (war "no")
             basicPrice *= DISCOUNT_NO_DAMAGE;
         };
 
-        resultBox.innerHTML = `<p>Deine Haftpflichtversicherung würde dich jährlich ${basicPrice.toFixed(2)}€ kosten.</p>`; // Ergebnis der Berechnung
+        resultBox.innerHTML = `<p class="result-text">Deine Haftpflichtversicherung würde dich jährlich ${basicPrice.toFixed(2)}€ kosten.</p>`; // Ergebnis der Berechnung
         resultBox.classList.add('is-visible');
     }
 
     // Reset Funktion
     function reset() {
-        document.getElementById(`birthdate`).value = "";
-        document.getElementById(`postcode`).value = "";
-        document.getElementById(`city`).value = "";
+        // Wir benutzen die Variablen von oben
+        birthInput.value = '';
+        postInput.value = '';
+        cityInput.value = '';
 
-        const radioBtns = document.querySelectorAll(`input[type="radio"]`)
+        const radioBtns = document.querySelectorAll('input[type="radio"]');
         radioBtns.forEach(radio => {
             radio.checked = false;
-        })
-        resultBox.innerHTML = "";
-        resultBox.classList.remove('is-visible')
-
+        });
+        
+        resultBox.innerHTML = '';
+        resultBox.classList.remove('is-visible');
+        localStorage.clear(); // Lösche alle gespeicherten Daten
+        console.log('reset');
     }
 });
