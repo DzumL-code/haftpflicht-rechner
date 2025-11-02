@@ -123,6 +123,27 @@ main {
 .result-price {
     font-size: 2.0rem;
     font-weight: bold;
-    color: #ff9900; 
+    color: #ff9900;
     margin-left: 12px;
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 18px;
+    }
+
+    .a1 {
+        padding: 5px;
+        margin: 2px;
+    }
+
+    #who_options {
+        flex-direction: column;
+        align-items: stretch;
+
+    }
+
+    .result-price {
+        font-size: 2.0rem;
+    }
 }
