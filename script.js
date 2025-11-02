@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
 
     // Alters-Regeln
     const MIN_AGE = 18;          // Mindestalter
+    const MAX_AGE = 116;         // Maximales Alter dato 2025
     const RISK_AGE_LIMIT = 25;   // Grenze für Risiko-Aufschlag
     const RISK_FACTOR_U25 = 1.2; // 20% Aufschlag
 
@@ -47,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
 
         if (!whoChecked) { // Die Berechnung wird gestoppt, wenn keine Tariffgruppe ausgewäht wurde
             resultBox.innerHTML = `<p>Bitte wähle aus, <strong>wer versichert</strong> werden soll!</p>`;
+            resultBox.classList.add('is-visible');
             return;
         }
         if (whoChecked) {
@@ -63,7 +65,8 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
 
         if (!birthValue) {
             resultBox.innerHTML = `<p>Bitte gib dein <strong>Geburtsdatum</strong> ein!</p>`;
-            return;
+            resultBox.classList.add('is-visible');
+            return; // Code wird beendet, wenn kein Geburtsdatum angegeben wird
         }
 
         const birthDate = new Date(birthValue); // Geburtsdatum
@@ -76,7 +79,13 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
         };
         if (age < MIN_AGE) {
             resultBox.innerHTML = `<p>Du bist leider <strong>zu jung</strong> für einen Vertrag, komm gerne wieder zurück, wenn du <strong>Volljährig</strong> bist!</p>`;
-            return; // Code wird beendet, wenn kein Geburtsdatum angegeben wird
+            resultBox.classList.add('is-visible');
+            return; 
+        }
+        else if (age > MAX_AGE) {
+            resultBox.innerHTML = `<p>Du bist officiel der älteste Mensch, <strong>herzlichen Glückwunsch</strong> zu dieser Leistung. <br><strong>Kontaktiere</strong> uns bitte persöhnlich mit einem <strong>Brief</strong> oder <strong>Email</strong>.</p>`;
+            resultBox.classList.add('is-visible');
+            return;
         }
         else if (age < RISK_AGE_LIMIT) {
             basicPrice *= RISK_FACTOR_U25;
@@ -88,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
 
         if (!postValue) {
             resultBox.innerHTML = `<p>Bitte gib deine <strong>Postleitzahl</strong> ein!</p>`;
+            resultBox.classList.add('is-visible');
             return; // Code wird beendet, wenn keine PLZ angegeben wird
         }
 
@@ -101,13 +111,14 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
 
         // Öffentlicher Dienst Prüfung
         const jobChecked = document.querySelector(`input[name="jobStatus"]:checked`);
-        
+
         if (!jobChecked) {
-           resultBox.innerHTML = `<p>Bitte gib ab ob du beim <strong>öffetlicher Dienst</strong> bist!</p>`;
+            resultBox.innerHTML = `<p>Bitte gib ab ob du beim <strong>öffetlicher Dienst</strong> bist!</p>`;
+            resultBox.classList.add('is-visible');
             return;
         };
 
-        if (jobChecked.value === "yes" ) {
+        if (jobChecked.value === "yes") {
             basicPrice *= DISCOUNT_JOB;
         };
 
@@ -117,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
 
         if (!damageCecked) {
             resultBox.innerHTML = `<p>Bitte gib ab ob du die letzen 5 Jahre <strong>Schadensfrei</strong> warst!</p>`;
+            resultBox.classList.add('is-visible');
             return;
         };
         if (damageCecked.value === "yes") {
@@ -124,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
         };
 
         resultBox.innerHTML = `<p>Deine Haftpflichtversicherung würde dich jährlich ${basicPrice.toFixed(2)}€ kosten.</p>`; // Ergebnis der Berechnung
+        resultBox.classList.add('is-visible');
     }
 
     // Reset Funktion
@@ -137,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () { // HTML und CSS werd
             radio.checked = false;
         })
         resultBox.innerHTML = "";
-        console.log("reset");
-        
+        resultBox.classList.remove('is-visible')
+
     }
 });
