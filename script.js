@@ -45,19 +45,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- 2. EVENT LISTENERS ZUM SPEICHERN (localStorage) ---
     
-    // Textfelder speichern (beim Tippen)
+    // Textfelder speichern (Input ließt jede Veränderung)
     birthInput.addEventListener('input', () => localStorage.setItem('userBirthdate', birthInput.value));
     postInput.addEventListener('input', () => localStorage.setItem('userPostcode', postInput.value));
     cityInput.addEventListener('input', () => localStorage.setItem('userCity', cityInput.value));
 
-    // Radio-Buttons speichern (beim Ändern)
+    // Radio-Buttons speichern
     function saveRadioSelection(event) {
         if (event.target.checked) {
             // Speichert den WERT (z.B. "yes") unter dem NAMEN der Gruppe (z.B. "jobStatus")
             localStorage.setItem(event.target.name, event.target.value);
         }
     }
-    // Füge diesen Listener zu allen Radio-Buttons hinzu
     document.querySelectorAll('input[type="radio"]').forEach(radio => {
         radio.addEventListener('change', saveRadioSelection);
     });
@@ -143,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }; // Aufschlag von 20% für jüngere Leute...
 
         // Wohnort Prüfung
-        const postValue = postInput.value; // Das Inputfeld wird gelesen...
+        const postValue = postInput.value;
 
         if (!postValue) {
             resultBox.innerHTML = `<p class="error-text">Bitte gib deine <strong>Postleitzahl</strong> ein!</p>`;
@@ -190,7 +189,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Reset Funktion
     function reset() {
-        // Wir benutzen die Variablen von oben
         birthInput.value = '';
         postInput.value = '';
         cityInput.value = '';
