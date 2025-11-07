@@ -31,10 +31,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- ENDE REGELN ---
 
-    // --- 1. ALLE ELEMENTE EINMAL FINDEN ---
-    const btnCalculate = document.getElementById('bStart'); // Button zur Berechnung wird gelesen
-    const btnReset = document.getElementById('bReset'); // Button um die Einstellungen zu löschen
+    // --- Globale Variable für den aktuellen Preis ---
+    let currentPrice = 0; 
+
+    // -- Elemente finden und Event-Listeners --
+
+    // Button und Hörer um die Kalkulation zu starten
+    const btnCalculate = document.getElementById('bStart');
+    btnCalculate.addEventListener('click', calculate);
+    // Button und Hörer um die Kalkulation zu reseten
+    const btnReset = document.getElementById('bReset'); 
+    btnReset.addEventListener('click', reset);
+    // Button und Hörer um den Preis pro Monat anzuzeigen
+    const btnMonthly = document.getElementById('bMonthly');
+    btnMonthly.addEventListener('click',showMonthly)
+    // Ergebnissbereich
     const resultBox = document.getElementById('result');
+
+    // -- Rabatte --
 
     const birthInput = document.getElementById('birthdate');
     const postInput = document.getElementById('postcode');
@@ -60,10 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('input[type="radio"]').forEach(radio => {
         radio.addEventListener('change', saveRadioSelection);
     });
-
-    // --- 3. HAUPT-EVENT-LISTENERS (Buttons) ---
-    btnCalculate.addEventListener('click', calculate); // Button zu Berechnung wird überwacht...
-    btnReset.addEventListener('click', reset);
 
     // --- 4. DATEN LADEN FUNKTION (localStorage) ---
     function loadSavedData() {
@@ -183,17 +193,32 @@ document.addEventListener('DOMContentLoaded', function () {
             basicPrice *= DISCOUNT_NO_DAMAGE;
         };
 
-        const resultText = "Deine Haftpflichtversicherung kostet dich jährlich:";
-        const Price = `${basicPrice.toFixed(2)}€`;
+        currentPrice = basicPrice;
+
+        const resultText = "Deine Haftpflichtversicherung kostet dich:";
+        const Price = `${basicPrice.toFixed(2)}€ im Jahr`;
         resultBox.innerHTML = `
         <p class="result-text">${resultText}</p>
         <div class="result-price">${Price}</div>
         `;
         resultBox.classList.add('is-visible');
+        btnMonthly.classList.remove('is-hidden');
     };
 
-    // Reset Funktion
+    // --- Preis pro Monat Funktion ---
+    function showMonthly (){
+        const monthlyPrice = currentPrice / 12;
+        const priceElement = document.querySelector('.result-price');
+
+        if (priceElement) {
+
+            priceElement.innerHTML = `${monthlyPrice.toFixed(2)}€ pro Monat`;
+        }
+    };
+
+    // --- Reset Funktion ---
     function reset() {
+        currentPrice = 0;
         birthInput.value = '';
         postInput.value = '';
         cityInput.value = '';
@@ -205,6 +230,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         resultBox.innerHTML = '';
         resultBox.classList.remove('is-visible');
+        btnMonthly.classList.add('is-hidden');
         localStorage.clear(); // Lösche alle gespeicherten Daten
         console.log('reset');
     }

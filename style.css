@@ -51,6 +51,20 @@ main {
     color: black;
 }
 
+#bMonthly{
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 5px;
+    font-weight: bolder;
+    margin-top: 20px;
+}
+
+#bMonthly:hover{
+    background-color: #ff9900;
+    color: black;
+}
+
 #who_options {
     display: flex;
     align-items: center;
@@ -125,6 +139,10 @@ main {
     font-weight: bold;
     color: #ff9900;
     margin-left: 12px;
+}
+
+.is-hidden{
+    display: none;
 }
 
 @media (max-width: 600px) {
