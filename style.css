@@ -285,7 +285,7 @@ h3 {
     margin: 40px auto; /* Mehr Abstand zur umgebenden Main-Box und zentriert */
     padding: 30px; /* Etwas mehr Innenabstand */
     width: auto; /* Breite automatisch anpassen */
-    max-width: 500px; /* Eine maximale Breite, falls der Inhalt zu schmal ist */
+    max-width: 600px; /* Eine maximale Breite, falls der Inhalt zu schmal ist */
 
     /* Animation beim Erscheinen */
     opacity: 0;
