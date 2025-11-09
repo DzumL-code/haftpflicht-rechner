@@ -83,32 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
         radio.addEventListener('change', saveRadioSelection);
     });
 
-    // --- 4. DATEN LADEN FUNKTION (localStorage) ---
-    function loadSavedData() {
-        // Lade Textfelder
-        // (Das '|| '' ' ist ein "Fallback": Nimm das Gespeicherte ODER (||) einen leeren String)
-        birthDaySelect.value = localStorage.getItem('userDaySelect') || '';
-        birthMonthSelect.value = localStorage.getItem('userMonthSelect') || '';
-        birthYearSelect.value = localStorage.getItem('userYearSelect') || '';
-        postInput.value = localStorage.getItem('userPostcode') || '';
-        cityInput.value = localStorage.getItem('userCity') || '';
-
-        // Lade Radio-Buttons
-        radioGroupNames.forEach(groupName => {
-            const savedValue = localStorage.getItem(groupName); // z.B. Lade den Wert für "jobStatus"
-            if (savedValue) { // z.B. "yes"
-                // Finde den Button, der diesen Namen UND diesen Wert hat
-                const radioToSelect = document.querySelector(`input[name="${groupName}"][value="${savedValue}"]`);
-                if (radioToSelect) {
-                    radioToSelect.checked = true; // Hake ihn an
-                }
-            }
-        });
-    }
-
-    // --- 5. LADE-FUNKTION AUFRUFEN ---
-    // Rufe die Funktion EINMAL beim Start auf
-    loadSavedData();
 
     // --- Funktion zur generierung der Datums Optionen ---
     function populateDateDropdowns() {
@@ -138,7 +112,35 @@ document.addEventListener('DOMContentLoaded', function () {
             birthYearSelect.appendChild(yearOptions)
         };
     };
+
     populateDateDropdowns();
+
+
+    // --- 4. DATEN LADEN FUNKTION (localStorage) ---
+    function loadSavedData() {
+        // Lade Textfelder
+        // (Das '|| '' ' ist ein "Fallback": Nimm das Gespeicherte ODER (||) einen leeren String)
+        birthDaySelect.value = localStorage.getItem('userDaySelect') || '';
+        birthMonthSelect.value = localStorage.getItem('userMonthSelect') || '';
+        birthYearSelect.value = localStorage.getItem('userYearSelect') || '';
+        postInput.value = localStorage.getItem('userPostcode') || '';
+        cityInput.value = localStorage.getItem('userCity') || '';
+
+        // Lade Radio-Buttons
+        radioGroupNames.forEach(groupName => {
+            const savedValue = localStorage.getItem(groupName); // z.B. Lade den Wert für "jobStatus"
+            if (savedValue) { // z.B. "yes"
+                // Finde den Button, der diesen Namen UND diesen Wert hat
+                const radioToSelect = document.querySelector(`input[name="${groupName}"][value="${savedValue}"]`);
+                if (radioToSelect) {
+                    radioToSelect.checked = true; // Hake ihn an
+                }
+            }
+        });
+    }
+
+    loadSavedData();
+
 
     // --- 6. HAUPT-FUNKTIONEN ---
 
@@ -247,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- Preis pro Monat Funktion ---
     function togglePriceView() {
         const priceElement = document.querySelector('.result-price');
-        if (isMonthlyNow) { 
+        if (isMonthlyNow) {
             priceElement.innerHTML = `${currentPrice.toFixed(2)}€ pro Jahr`
             btnMonthly.innerHTML = 'Preis pro Monat'
             isMonthlyNow = false;

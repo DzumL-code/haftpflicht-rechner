@@ -268,48 +268,65 @@ h3 {
     border-radius: 10px;
     border: 1px solid #D1D5DB;
 }
-
 #result {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    border: solid var(--color-accent);
-    border-radius: 10px;
-    border-style: solid;
-    margin: 30px;
-    padding: 10px;
-    font-size: 1.2rem;
+    flex-direction: column; /* Inhalt vertikal anordnen (Text über Preis) */
+    align-items: center; /* Horizontale Zentrierung der Elemente */
+    justify-content: center; /* Vertikale Zentrierung (falls genügend Platz) */
+    text-align: center; /* Text innerhalb der Elemente zentrieren */
+
+    /* Visuelle Hervorhebung */
+    background-color: var(--color-accent-2); /* Klares Weiß, damit es strahlt */
+    border: 3px solid var(--color-accent); /* Ein dickerer, akzentuierter Rand */
+    border-radius: 12px; /* Etwas runder als die Main-Box, wirkt weicher */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Tieferer, auffälligerer Schatten */
+
+    /* Positionierung und Abstände */
+    margin: 40px auto; /* Mehr Abstand zur umgebenden Main-Box und zentriert */
+    padding: 30px; /* Etwas mehr Innenabstand */
+    width: auto; /* Breite automatisch anpassen */
+    max-width: 500px; /* Eine maximale Breite, falls der Inhalt zu schmal ist */
+
+    /* Animation beim Erscheinen */
     opacity: 0;
-    transform: scale(0.9);
+    transform: translateY(30px) scale(0.9); /* Start: etwas tiefer, leicht verkleinert */
     visibility: hidden;
-    transition: all 0.3s ease-out;
+    transition: all 0.6s ease-out; /* Längerer und sanfterer Übergang */
 }
 
 #result.is-visible {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0) scale(1); /* End: Normalposition, volle Größe */
     visibility: visible;
 }
 
-.error-text {
-    color: var(--color-text-error);
-    font-weight: bold;
-    font-size: 1.1rem;
-}
+/* Anpassung der Texte innerhalb der Ergebnisbox */
+/* Du hast nur Text und Price, keine separaten Klassen für den beschreibenden Text,
+   daher muss der erste Teil des Ergebnis-Strings (wenn er kein Error ist)
+   entweder direkt gestylt werden oder wir geben ihm eine eigene Span-Klasse in JS.
+   Fürs Erste stylen wir den Container etwas allgemeiner und den Preis spezifisch. */
 
-.result-text {
-    font-size: 1.1rem;
+.result-text { /* Dies ist für den Text im #result-Div, wenn er nicht der Preis ist */
+    font-size: 1.3rem; /* Größerer beschreibender Text */
     font-weight: normal;
     color: var(--color-text-primary);
-    margin: 0;
+    margin-bottom: 12px; /* Abstand zum Preis */
 }
 
 .result-price {
-    font-size: 2.0rem;
-    font-weight: bold;
-    color: var(--color-accent);
-    margin-left: 12px;
+    font-size: 3.2rem; /* Sehr groß und dominierend */
+    font-weight: 700; /* Extra fett für den Preis */
+    color: var(--color-accent); /* Deine Akzentfarbe */
+    margin-left: 0; /* Entfernen, da es jetzt vertikal zentriert wird */
+    margin-top: 5px; /* Etwas Abstand zum Text darüber */
 }
+
+.error-text { /* Deine bestehende Fehlertext-Klasse */
+    color: var(--color-text-error);
+    font-weight: bold;
+    font-size: 1.4rem; /* Fehlertext auch größer, um Aufmerksamkeit zu erregen */
+}
+
 
 /* --- RESPONSIVE DESIGN ANPASSUNGEN --- */
 @media screen and (max-width: 768px) {
@@ -404,15 +421,19 @@ h3 {
         margin-top: 10px;
     }
 
-    #result { /* Ergebnisbox anpassen */
-        margin: 20px; /* Etwas weniger Margin */
-        padding: 10px;
-        flex-direction: column; /* Text und Preis untereinander */
-        gap: 5px;
+    #result {
+        margin: 30px auto; /* Etwas weniger Margin auf Handy */
+        padding: 25px;
+        max-width: 90%; /* Auf Handy auch eine Max-Breite */
+    }
+    .result-text {
+        font-size: 1.1rem;
     }
     .result-price {
-        font-size: 1.8rem;
-        margin-left: 0; /* Zentrieren, wenn untereinander */
+        font-size: 2.5rem; /* Preis auf Handy etwas kleiner als Desktop, aber immer noch groß */
+    }
+    .error-text {
+        font-size: 1.2rem;
     }
 }
 
@@ -440,5 +461,18 @@ h3 {
         width: 95%;
         padding: 0.7rem 1rem;
         font-size: 0.9em;
+    }
+    #result {
+        margin: 20px auto;
+        padding: 20px;
+    }
+    .result-text {
+        font-size: 1rem;
+    }
+    .result-price {
+        font-size: 2rem;
+    }
+    .error-text {
+        font-size: 1.1rem;
     }
 }
