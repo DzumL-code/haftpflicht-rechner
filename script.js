@@ -32,8 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- ENDE REGELN ---
 
-    // --- Globale Variable für den aktuellen Preis ---
-    let currentPrice = 0; 
+    // --- Globale Variablen ---
+    let currentPrice = 0;
+    let isMonthlyNow = false;
 
     // -- Elemente finden und Event-Listeners --
 
@@ -41,11 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnCalculate = document.getElementById('bStart');
     btnCalculate.addEventListener('click', calculate);
     // Button und Hörer um die Kalkulation zu reseten
-    const btnReset = document.getElementById('bReset'); 
+    const btnReset = document.getElementById('bReset');
     btnReset.addEventListener('click', reset);
     // Button und Hörer um den Preis pro Monat anzuzeigen
     const btnMonthly = document.getElementById('bMonthly');
-    btnMonthly.addEventListener('click',showMonthly)
+    btnMonthly.addEventListener('click', togglePriceView)
     // Ergebnissbereich
     const resultBox = document.getElementById('result');
 
@@ -65,9 +66,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- 2. EVENT LISTENERS ZUM SPEICHERN (localStorage) ---
 
     // Textfelder speichern (Input ließt jede Veränderung)
-    birthDaySelect.addEventListener('input', () => localStorage.setItem('userDaySelect',birthDaySelect.value));
-    birthMonthSelect.addEventListener('input', () => localStorage.setItem('userMonthSelect',birthMonthSelect.value));
-    birthYearSelect.addEventListener('input', () => localStorage.setItem('userYearSelect',birthYearSelect.value));
+    birthDaySelect.addEventListener('input', () => localStorage.setItem('userDaySelect', birthDaySelect.value));
+    birthMonthSelect.addEventListener('input', () => localStorage.setItem('userMonthSelect', birthMonthSelect.value));
+    birthYearSelect.addEventListener('input', () => localStorage.setItem('userYearSelect', birthYearSelect.value));
     postInput.addEventListener('input', () => localStorage.setItem('userPostcode', postInput.value));
     cityInput.addEventListener('input', () => localStorage.setItem('userCity', cityInput.value));
 
@@ -110,16 +111,16 @@ document.addEventListener('DOMContentLoaded', function () {
     loadSavedData();
 
     // --- Funktion zur generierung der Datums Optionen ---
-    function populateDateDropdowns(){
+    function populateDateDropdowns() {
 
-        for (let i = 1; i <= 31; i++){
+        for (let i = 1; i <= 31; i++) {
             const dayOptions = document.createElement('option');
             dayOptions.value = i;
             dayOptions.textContent = i;
             birthDaySelect.appendChild(dayOptions)
         };
 
-        for (let i = 1; i <= 12; i++){
+        for (let i = 1; i <= 12; i++) {
             const monthOptions = document.createElement('option');
             monthOptions.value = i;
             monthOptions.textContent = i;
@@ -128,9 +129,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const currentYear = new Date().getFullYear();
         const startYear = currentYear - MIN_AGE;
-        
-        
-        for (let i = startYear; i >= MIN_BIRTH_YEAR_TO_ACCEPT; i--){
+
+
+        for (let i = startYear; i >= MIN_BIRTH_YEAR_TO_ACCEPT; i--) {
             const yearOptions = document.createElement('option');
             yearOptions.value = i;
             yearOptions.textContent = i;
@@ -161,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Geburtsdatum Prüfung
         const birthValue = `${birthYearSelect.value}-${parseInt(birthMonthSelect.value) - 1}-${birthDaySelect.value}`;
-      
+
         if (!birthDaySelect.value || !birthMonthSelect.value || !birthYearSelect.value) {
             resultBox.innerHTML = `<p class="error-text">Bitte geben Sie ihr <strong>Geburtsdatum</strong> ein!</p>`;
             resultBox.classList.add('is-visible');
@@ -231,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function () {
         currentPrice = basicPrice;
 
         const resultText = "Ihre Haftpflichtversicherung kostet:";
-        const Price = `${basicPrice.toFixed(2)}€ im Jahr`;
+        const Price = `${basicPrice.toFixed(2)}€ pro Jahr`;
         resultBox.innerHTML = `
         <p class="result-text">${resultText}</p>
         <div class="result-price">${Price}</div>
@@ -239,16 +240,25 @@ document.addEventListener('DOMContentLoaded', function () {
         resultBox.classList.add('is-visible');
         btnMonthly.classList.remove('is-hidden');
         btnReset.classList.remove('is-hidden');
+        isMonthlyNow = false;
+        btnMonthly.innerHTML = 'Preis pro Monat';
     };
 
     // --- Preis pro Monat Funktion ---
-    function showMonthly (){
-        const monthlyPrice = currentPrice / 12;
+    function togglePriceView() {
         const priceElement = document.querySelector('.result-price');
-
-        if (priceElement) {
-
-            priceElement.innerHTML = `${monthlyPrice.toFixed(2)}€ pro Monat`;
+        if (isMonthlyNow) { 
+            priceElement.innerHTML = `${currentPrice.toFixed(2)}€ pro Jahr`
+            btnMonthly.innerHTML = 'Preis pro Monat'
+            isMonthlyNow = false;
+        }
+        else {
+            const monthlyPrice = currentPrice / 12;
+            isMonthlyNow = true;
+            btnMonthly.innerHTML = 'Preis pro Jahr'
+            if (priceElement) {
+                priceElement.innerHTML = `${monthlyPrice.toFixed(2)}€ pro Monat`;
+            }
         }
     };
 
