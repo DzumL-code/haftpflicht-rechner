@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Alters-Regeln
     const MIN_AGE = 18;          // Mindestalter
+    const MIN_BIRTH_YEAR_TO_ACCEPT = 1909; // Aktuell älteste lebende Person
     const MAX_AGE = 116;         // Maximales Alter dato 2025
     const RISK_AGE_LIMIT = 25;   // Grenze für Risiko-Aufschlag
     const RISK_FACTOR_U25 = 1.2; // 20% Aufschlag
@@ -48,11 +49,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Ergebnissbereich
     const resultBox = document.getElementById('result');
 
-    // -- Rabatte --
-
-    const birthInput = document.getElementById('birthdate');
+    // Lesen von Selectoren und Inputs
+    const birthDaySelect = document.getElementById('birthDay');
+    const birthMonthSelect = document.getElementById('birthMonth');
+    const birthYearSelect = document.getElementById('birthYear');
     const postInput = document.getElementById('postcode');
     const cityInput = document.getElementById('city');
+
+    // Verhinderung das Buchstaben in die PLZ eingetragen werden können
+    postInput.addEventListener('input', () => postInput.value = postInput.value.replace(/[^0-9]/g, ''));
 
     // Namen der Radio-Gruppen (für einfaches Speichern/Laden)
     const radioGroupNames = ['a1', 'jobStatus', 'damageStatus'];
@@ -60,7 +65,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- 2. EVENT LISTENERS ZUM SPEICHERN (localStorage) ---
 
     // Textfelder speichern (Input ließt jede Veränderung)
-    birthInput.addEventListener('input', () => localStorage.setItem('userBirthdate', birthInput.value));
+    birthDaySelect.addEventListener('input', () => localStorage.setItem('userDaySelect',birthDaySelect.value));
+    birthMonthSelect.addEventListener('input', () => localStorage.setItem('userMonthSelect',birthMonthSelect.value));
+    birthYearSelect.addEventListener('input', () => localStorage.setItem('userYearSelect',birthYearSelect.value));
     postInput.addEventListener('input', () => localStorage.setItem('userPostcode', postInput.value));
     cityInput.addEventListener('input', () => localStorage.setItem('userCity', cityInput.value));
 
@@ -79,7 +86,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadSavedData() {
         // Lade Textfelder
         // (Das '|| '' ' ist ein "Fallback": Nimm das Gespeicherte ODER (||) einen leeren String)
-        birthInput.value = localStorage.getItem('userBirthdate') || '';
+        birthDaySelect.value = localStorage.getItem('userDaySelect') || '';
+        birthMonthSelect.value = localStorage.getItem('userMonthSelect') || '';
+        birthYearSelect.value = localStorage.getItem('userYearSelect') || '';
         postInput.value = localStorage.getItem('userPostcode') || '';
         cityInput.value = localStorage.getItem('userCity') || '';
 
@@ -100,6 +109,36 @@ document.addEventListener('DOMContentLoaded', function () {
     // Rufe die Funktion EINMAL beim Start auf
     loadSavedData();
 
+    // --- Funktion zur generierung der Datums Optionen ---
+    function populateDateDropdowns(){
+
+        for (let i = 1; i <= 31; i++){
+            const dayOptions = document.createElement('option');
+            dayOptions.value = i;
+            dayOptions.textContent = i;
+            birthDaySelect.appendChild(dayOptions)
+        };
+
+        for (let i = 1; i <= 12; i++){
+            const monthOptions = document.createElement('option');
+            monthOptions.value = i;
+            monthOptions.textContent = i;
+            birthMonthSelect.appendChild(monthOptions)
+        };
+
+        const currentYear = new Date().getFullYear();
+        const startYear = currentYear - MIN_AGE;
+        
+        
+        for (let i = startYear; i >= MIN_BIRTH_YEAR_TO_ACCEPT; i--){
+            const yearOptions = document.createElement('option');
+            yearOptions.value = i;
+            yearOptions.textContent = i;
+            birthYearSelect.appendChild(yearOptions)
+        };
+    };
+    populateDateDropdowns();
+
     // --- 6. HAUPT-FUNKTIONEN ---
 
     // Funktion zur Berechnung
@@ -111,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const whoChecked = document.querySelector('input[name="a1"]:checked'); // Die radio Buttons werden gelesen
 
         if (!whoChecked) { // Die Berechnung wird gestoppt, wenn keine Tariffgruppe ausgewäht wurde
-            resultBox.innerHTML = `<p class="error-text">Bitte wähle aus, <strong>wer versichert</strong> werden soll!</p>`;
+            resultBox.innerHTML = `<p class="error-text">Bitte wähle Sie aus, <strong>wer versichert</strong> werden soll!</p>`;
             resultBox.classList.add('is-visible');
             return;
         }
@@ -121,10 +160,10 @@ document.addEventListener('DOMContentLoaded', function () {
         else if (who === 'family') basicPrice += SURCHARGE_FAMILY; // Aufschlag für Partner mit Kind/er
 
         // Geburtsdatum Prüfung
-        const birthValue = birthInput.value;
-
-        if (!birthValue) {
-            resultBox.innerHTML = `<p class="error-text">Bitte gib dein <strong>Geburtsdatum</strong> ein!</p>`;
+        const birthValue = `${birthYearSelect.value}-${parseInt(birthMonthSelect.value) - 1}-${birthDaySelect.value}`;
+      
+        if (!birthDaySelect.value || !birthMonthSelect.value || !birthYearSelect.value) {
+            resultBox.innerHTML = `<p class="error-text">Bitte geben Sie ihr <strong>Geburtsdatum</strong> ein!</p>`;
             resultBox.classList.add('is-visible');
             return; // Code wird beendet, wenn kein Geburtsdatum angegeben wird
         }
@@ -137,13 +176,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
             age--; // Es wird ein Jahr abgezogen, wenn man im aktuellen Jahr noch keinen Geburtstag hatte
         };
-        if (age < MIN_AGE) {
-            resultBox.innerHTML = `<p class="error-text">Du bist leider <strong>zu jung</strong> für einen Vertrag...</p>`;
-            resultBox.classList.add('is-visible');
-            return;
-        }
-        else if (age > MAX_AGE) {
-            resultBox.innerHTML = `<p class="error-text">Du bist officiel der älteste Mensch... <br><strong>Kontaktiere</strong> uns bitte persöhnlich...</p>`;
+
+        if (age > MAX_AGE) {
+            resultBox.innerHTML = `<p class="error-text">Bitte melden Sie sich bei uns persöhnlich!</p>`;
             resultBox.classList.add('is-visible');
             return;
         }
@@ -155,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const postValue = postInput.value;
 
         if (!postValue) {
-            resultBox.innerHTML = `<p class="error-text">Bitte gib deine <strong>Postleitzahl</strong> ein!</p>`;
+            resultBox.innerHTML = `<p class="error-text">Bitte geben Sie ihre <strong>Postleitzahl</strong> ein!</p>`;
             resultBox.classList.add('is-visible');
             return; // Code wird beendet, wenn keine PLZ angegeben wird
         }
@@ -172,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const jobChecked = document.querySelector('input[name="jobStatus"]:checked');
 
         if (!jobChecked) {
-            resultBox.innerHTML = `<p class="error-text">Bitte gib an, ob du beim <strong>öffentlichen Dienst</strong> bist!</p>`;
+            resultBox.innerHTML = `<p class="error-text">Bitte geben Sie an, ob sie beim <strong>öffentlichen Dienst</strong> arbeiten!</p>`;
             resultBox.classList.add('is-visible');
             return;
         };
@@ -185,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const damageChecked = document.querySelector('input[name="damageStatus"]:checked'); // Tippfehler "Cecked" behoben
 
         if (!damageChecked) {
-            resultBox.innerHTML = `<p class="error-text">Bitte gib an, ob du die letzten 5 Jahre <strong>Schadensfrei</strong> warst!</p>`;
+            resultBox.innerHTML = `<p class="error-text">Bitte geben Sie an, ob sie die letzten 5 Jahre <strong>Schadensfrei</strong> waren!</p>`;
             resultBox.classList.add('is-visible');
             return;
         };
@@ -195,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         currentPrice = basicPrice;
 
-        const resultText = "Deine Haftpflichtversicherung kostet dich:";
+        const resultText = "Ihre Haftpflichtversicherung kostet:";
         const Price = `${basicPrice.toFixed(2)}€ im Jahr`;
         resultBox.innerHTML = `
         <p class="result-text">${resultText}</p>
@@ -203,6 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
         resultBox.classList.add('is-visible');
         btnMonthly.classList.remove('is-hidden');
+        btnReset.classList.remove('is-hidden');
     };
 
     // --- Preis pro Monat Funktion ---
@@ -219,7 +255,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- Reset Funktion ---
     function reset() {
         currentPrice = 0;
-        birthInput.value = '';
+        birthDaySelect.value = '';
+        birthMonthSelect.value = '';
+        birthYearSelect.value = '';
         postInput.value = '';
         cityInput.value = '';
 
@@ -232,6 +270,5 @@ document.addEventListener('DOMContentLoaded', function () {
         resultBox.classList.remove('is-visible');
         btnMonthly.classList.add('is-hidden');
         localStorage.clear(); // Lösche alle gespeicherten Daten
-        console.log('reset');
     }
 });

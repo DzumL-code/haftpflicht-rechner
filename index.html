@@ -5,13 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarifrechner Privathaftplficht</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <header>
-        <h1>DzumL Versicherungen</h1>
-        <h2>Kostenberechnung ihrer privaten Haftpflichtversicherung</h2>
+        <img src="images/Logo.png" alt="DzumL Versicherungen Logo" class="logo">
+        <div class="header-text">
+            <h1>DzumL Versicherungen</h1>
+            <h2 class="slogen">Kostenberechnung Ihrer privaten Haftpflichtversicherung</h2>
+        </div>
     </header>
     <main>
         <div id="who">
@@ -35,34 +41,55 @@
                 </div>
             </div>
         </div>
-        <h3>Wann wurden sie geboren?</h3>
-        <div class="answer2">
-            <input type="date" name="birth" id="birthdate">
+        <h3>Wann wurden Sie geboren?</h3>
+        <div class="birthdate-selects">
+            <select class="birth" id="birthDay" name="birthDay">
+                <option value="">Tag</option>
+            </select>
+            <select class="birth" id="birthMonth" name="birthMonth">
+                <option value="">Monat</option>
+            </select>
+            <select class="birth" id="birthYear" name="birthYear">
+                <option value="">Jahr</option>
+            </select>
         </div>
-        <h3>Wie lautet ihre Postleitzahl und Wohnort?</h3>
-        <div class="answer3">
-            <input type="text" placeholder="Postleitzahl" id="postcode">
-            <input type="text" placeholder="Wohnort" id="city">
+        <h3>Wie lautet Ihre Postleitzahl und Wohnort?</h3>
+        <div class="zip-container">
+            <input type="text" class="zip" placeholder="Postleitzahl" id="postcode">
+            <input type="text" class="zip" placeholder="Wohnort" id="city">
         </div>
-        <div class="job">
-            <h3>Arbeiten sie im öffentlichen Dienst?</h3>
-            <input type="radio" name="jobStatus" id="jobYes" autocomplete="off" value="yes">
-            <label for="jobYes" class="jobYesP">Ja</label> <br>
-            <input type="radio" name="jobStatus" id="jobNo" autocomplete="off" value="no">
-            <label for="jobNo" class="jobNoP">Nein</label>
+        <div class="job-container">
+            <h3>Arbeiten Sie im öffentlichen Dienst?</h3>
+            <div class="job-input">
+                <div class="job-yes-container">
+                    <input type="radio" name="jobStatus" id="jobYes" autocomplete="off" value="yes">
+                    <label for="jobYes" class="jobYesP">Ja</label>
+                </div>
+                <div class="job-no-container">
+                    <input type="radio" name="jobStatus" id="jobNo" autocomplete="off" value="no">
+                    <label for="jobNo" class="jobNoP">Nein</label>
+                </div>
+            </div>
         </div>
-        <div>
-            <h3>Waren Sie in den letzten 5 Jahren in der Privathaftpflicht schadenfrei?</h3>
-            <input type="radio" name="damageStatus" id="damageYes" autocomplete="off" value="yes">
-            <label for="damageYes" class="jobYesP">Ja</label> <br>
-            <input type="radio" name="damageStatus" id="damageNo" autocomplete="off" value="no">
-            <label for="damageNo" class="jobNoP">Nein</label>
+        <div class="damage-container">
+            <h3>Waren Sie in den letzten 5 Jahren in Ihrer vorherigen Privathaftpflicht schadenfrei?</h3>
+            <div class="damage-input">
+                <div class="damage-yes-container">
+                    <input type="radio" class="damage" name="damageStatus" id="damageYes" autocomplete="off"
+                        value="yes">
+                    <label for="damageYes" class="jobYesP">Ja</label>
+                </div>
+                <div class="damage-no-container">
+                    <input type="radio" class="damage" name="damageStatus" id="damageNo" autocomplete="off" value="no">
+                    <label for="damageNo" class="jobNoP">Nein</label>
+                </div>
+            </div>
         </div>
         <div id="result">
         </div>
         <button id="bStart" type="button">Berechnung starten</button>
         <button id="bMonthly" class="is-hidden" type="button">Preis pro Monat</button>
-        <button id="bReset" type="button">Eingaben zurücksetzen!</button>
+        <button id="bReset" class="is-hidden" type="button">Eingaben zurücksetzen!</button>
     </main>
     <footer></footer>
     <script src="script.js"></script>
