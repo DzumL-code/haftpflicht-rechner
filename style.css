@@ -182,23 +182,99 @@ main {
     margin-left: 12px;
 }
 
-@media (max-width: 600px) {
+/* --- RESPONSIVE DESIGN ANPASSUNGEN --- */
+@media screen and (max-width: 768px) {
+
+    /* Allgemeine Anpassungen für den Hauptinhalt */
     body {
-        font-size: 18px;
+        /* Vielleicht die Schriftgröße etwas reduzieren für bessere Lesbarkeit auf kleinen Bildschirmen */
+        font-size: 0.9em;
     }
 
-    .a1 {
-        padding: 5px;
-        margin: 2px;
+    .main {
+        /* Maximale Breite anpassen, um nicht am Rand zu kleben */
+        max-width: 90%; /* Z.B. 90% der Bildschirmbreite */
+        margin: 20px auto; /* Etwas weniger vertikaler Abstand, zentrieren */
+        padding: 15px; /* Innenabstand reduzieren */
     }
 
-    #who_options {
-        flex-direction: column;
-        align-items: stretch;
-
+    /* Header-Anpassungen */
+    header {
+        flex-direction: column; /* Logo und Text untereinander statt nebeneinander */
+        text-align: center; /* Text zentrieren */
+        align-items: center; /* Elemente in der Mitte ausrichten */
+        padding: 15px; /* Padding für den Header reduzieren */
     }
 
-    .result-price {
-        font-size: 2.0rem;
+    .header-text h1 {
+        font-size: 1.8em; /* Überschrift verkleinern */
+        margin-top: 10px; /* Abstand nach oben zum Logo */
+    }
+
+    .header-text p {
+        font-size: 1em; /* Subtext verkleinern */
+        margin-bottom: 10px;
+    }
+
+    .logo img {
+        max-width: 80px; /* Logo auf Handy etwas kleiner machen */
+    }
+
+    /* Radio-Buttons ("Wer wird versichert?") anpassen */
+    /* Du hast die Struktur mit .a1 und .job-yes-container.
+       Wir müssen hier die Darstellung ändern, damit sie sich anpasst. */
+    .a1 { /* Das ist dein Container für die Radio-Button-Gruppen */
+        flex-direction: column; /* Standardmäßig vertikal */
+        gap: 10px; /* Abstand zwischen den Optionen */
+    }
+
+    .a1 .radio-option { /* Das ist die Box um jedes Radio-Button-Label */
+        width: 100%; /* Jede Option nimmt die volle Breite ein */
+        /* Paddings und Ränder evtl. anpassen, damit es nicht zu wuchtig wird */
+        padding: 12px 15px;
+        box-sizing: border-box; /* Sicherstellen, dass Padding zur Breite gehört */
+    }
+
+    /* Dropdowns für das Datum anpassen */
+    .birth {
+        flex-direction: column; /* Tag, Monat, Jahr untereinander */
+        gap: 10px; /* Abstand zwischen den Dropdowns */
+    }
+
+    .birth select {
+        width: 100%; /* Dropdowns volle Breite */
+        box-sizing: border-box;
+    }
+
+    /* Alle Labels für Radio-Buttons (falls sie zu lang werden) */
+    .radio-option label {
+        white-space: normal; /* Textumbruch erlauben, falls zu lang */
+        font-size: 0.95em;
+    }
+
+    /* Buttons anpassen (wenn sie zu groß erscheinen) */
+    .button-group {
+        flex-direction: column; /* Buttons untereinander */
+        gap: 10px;
+    }
+
+    .button-group button {
+        width: 100%; /* Volle Breite für die Buttons */
+        box-sizing: border-box;
+        padding: 12px 20px; /* Padding anpassen */
+    }
+}
+
+/* Optional: Eine noch kleinere Breakpoint für sehr kleine Handys */
+@media screen and (max-width: 480px) {
+    .header-text h1 {
+        font-size: 1.5em;
+    }
+    .header-text p {
+        font-size: 0.9em;
+    }
+    .main {
+        padding: 10px;
+        margin: 10px auto;
     }
 }
