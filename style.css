@@ -1,477 +1,439 @@
-/* --- Variablen für Farben --- */
+/* --- Globale Variablen für Farben --- */
 :root {
-    --color-background: #c6ddf5;
-    --color-accent: #ff9900;
-    --color-accent-2: #ffffff;
-    --color-card: #f9fafb8c;
-    --color-text-primary: #333333;
-    --color-text-error: #d8000bd8;
+    --color-background: #c6ddf5;      /* Hintergrundfarbe der Seite */
+    --color-accent: #ff9900;          /* Akzentfarbe für Buttons, Rahmen, Preise */
+    --color-accent-2: #ffffff;        /* Sekundäre Akzentfarbe, oft für Hintergründe von Elementen */
+    --color-card: #f9fafb8c;          /* Hintergrundfarbe für Hauptinhaltsboxen */
+    --color-text-primary: #333333;    /* Standard-Textfarbe */
+    --color-text-error: #d8000bd8;    /* Farbe für Fehlermeldungen */
 }
 
+/* --- Globale Stile & Typografie --- */
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--color-background);
+    font-family: 'Inter', sans-serif; /* Einheitliche Schriftart für die gesamte Seite */
+    background-color: var(--color-background); /* Anwendung der globalen Hintergrundfarbe */
+    margin: 0; /* Entfernt Standard-Margin des Browsers */
+    padding: 0; /* Entfernt Standard-Padding des Browsers */
+    box-sizing: border-box; /* Stellt sicher, dass Padding und Border in der Elementbreite enthalten sind */
 }
 
+/* --- Header Sektion --- */
 header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    width: 90%;
-    max-width: 800px;
-    margin: 40px auto 20px auto;
+    display: flex;         /* Aktiviert Flexbox für die Anordnung von Logo und Text */
+    align-items: center;   /* Zentriert Elemente vertikal */
+    gap: 20px;             /* Abstand zwischen Logo und Header-Text */
+    width: 90%;            /* Nimmt 90% der verfügbaren Breite ein */
+    max-width: 800px;      /* Begrenzt die maximale Breite des Headers */
+    margin: 40px auto 20px auto; /* Vertikale Margins und horizontale Zentrierung */
 }
 
 .logo {
-    width: 250px;
-    height: auto;
-    flex-shrink: 0;
+    width: 250px;          /* Feste Breite für das Logo */
+    height: auto;          /* Höhe wird proportional angepasst */
+    flex-shrink: 0;        /* Verhindert, dass das Logo bei Platzmangel schrumpft */
 }
 
 .header-text {
-    flex-grow: 1;
+    flex-grow: 1;          /* Erlaubt dem Text, den restlichen verfügbaren Platz einzunehmen */
 }
 
 .header-text h1,
 .header-text h2 {
-    margin: 0;
+    margin: 0;             /* Entfernt Standard-Margins für Überschriften im Header */
 }
 
 .header-text h1 {
-    color: var(--color-accent);
-    font-size: 1.8rem;
+    color: var(--color-accent); /* Akzentfarbe für die Hauptüberschrift */
+    font-size: 1.8rem;     /* Schriftgröße der Hauptüberschrift */
 }
 
 .header-text h2 {
-    font-size: 1.1rem;
-    font-weight: normal;
-    margin-top: 4px;
+    font-size: 1.1rem;     /* Schriftgröße des Slogans/Untertitels */
+    font-weight: normal;   /* Normales Schriftgewicht für den Slogan */
+    margin-top: 4px;       /* Kleiner Abstand über dem Slogan */
 }
 
+/* --- Hauptinhaltsbereich (Main-Container) --- */
 main {
-    background-color: var(--color-card);
-    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-    padding: 24px;
-    border-radius: 16px;
-    margin: 0 auto 40px auto;
-    width: 90%;
-    max-width: 700px;
+    background-color: var(--color-card); /* Hintergrundfarbe für die Hauptkarte */
+    box-shadow: 0px 10px 13px -7px #000000; /* Schatteneffekt */
+    padding: 24px;         /* Innenabstand der Karte */
+    border-radius: 16px;   /* Abgerundete Ecken der Karte */
+    margin: 0 auto 40px auto; /* Vertikale Margins und horizontale Zentrierung */
+    width: 90%;            /* Nimmt 90% der verfügbaren Breite ein */
+    max-width: 700px;      /* Begrenzt die maximale Breite der Karte */
 }
 
-.a1{
-    display: flex;
+/* --- Allgemeine Styling für h3 Überschriften im Formular --- */
+h3 {
+    margin-top: 30px;      /* Abstand nach oben */
+    margin-bottom: 15px;   /* Abstand nach unten */
+    color: var(--color-text-primary); /* Standard-Textfarbe */
+    font-size: 1.2rem;     /* Schriftgröße */
 }
 
 /* --- Styling für CUSTOM Radio Buttons --- */
-/* Versteckt den eigentlichen Radio-Button, aber hält ihn funktional */
+
+/* Versteckt den eigentlichen Radio-Button visuell, hält ihn aber funktional */
 .radio-option input[type="radio"] {
-    position: absolute;
-    opacity: 0;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    pointer-events: none;
-    z-index: -1;
-    /* Sicherstellen, dass das Label darüber liegt */
+    position: absolute;    /* Absolute Positionierung für vollständige Kontrolle */
+    opacity: 0;            /* Macht den Radio-Button unsichtbar */
+    width: 1px;            /* Minimale Breite */
+    height: 1px;           /* Minimale Höhe */
+    overflow: hidden;      /* Verhindert Überlauf */
+    clip: rect(0, 0, 0, 0); /* Schneidet den Inhalt ab */
+    white-space: nowrap;   /* Verhindert Zeilenumbruch */
+    pointer-events: none;  /* Verhindert Mausinteraktionen direkt mit dem Input */
+    z-index: -1;           /* Stellt sicher, dass das Label darüber liegt */
 }
 
-/* Stylen des Labels, das den Radio-Button darstellt */
-/* Diese Regeln ersetzen jetzt die Styling-Regeln deiner alten .a1, .job-yes-container etc. */
+/* Styling für die Labels der Radio-Buttons */
 .radio-option label {
-    display: block;
-    /* Label soll Block-Element sein, um die ganze Fläche zu füllen */
-    padding: 12px 20px;
-    border: 2px solid #ccc;
-    /* Standard-Rand */
-    border-radius: 8px;
-    /* Abgerundete Ecken */
-    background-color: var(--color-accent-2);
-    /* Weißer Hintergrund (dein #ffffff) */
-    color: var(--color-text-primary);
-    /* Textfarbe */
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.2s ease-in-out;
-    box-sizing: border-box;
-    /* WICHTIG: Padding und Border sollen zur Breite/Höhe gehören */
-    min-width: 80px;
-    /* Minimum Breite, damit "Ja" und "Nein" nicht zu schmal sind */
+    display: block;        /* Nimmt die volle Breite des Elternelements ein */
+    padding: 12px 20px;    /* Innenabstand für den Text */
+    border: 2px solid #ccc; /* Standard-Rand */
+    border-radius: 8px;    /* Abgerundete Ecken */
+    background-color: var(--color-accent-2); /* Hintergrundfarbe */
+    color: var(--color-text-primary); /* Textfarbe */
+    cursor: pointer;       /* Zeigt an, dass das Element klickbar ist */
+    text-align: center;    /* Zentriert den Text */
+    transition: all 0.2s ease-in-out; /* Sanfter Übergang für Hover/Checked-Effekte */
+    box-sizing: border-box; /* Stellt sicher, dass Padding und Border in der Breite enthalten sind */
+    min-width: 80px;       /* Minimale Breite des Labels */
 }
 
 /* Hover-Effekt für die Label */
 .radio-option label:hover {
-    background-color: #f5f5f5;
-    /* Leichter Hintergrund beim Hover */
-    border-color: #999;
-    /* Randfarbe beim Hover ändern */
+    background-color: #f5f5f5; /* Leichterer Hintergrund beim Hover */
+    border-color: #999;     /* Dunklerer Rand beim Hover */
 }
 
 /* Styling, wenn der Radio-Button ausgewählt ist */
-.radio-option input[type="radio"]:checked+label {
-    border-color: var(--color-accent);
-    /* Orangefarbener Rand, wenn ausgewählt */
-    background-color: #fff3e0;
-    /* Leicht orangefarbener Hintergrund */
-    color: var(--color-text-primary);
-    box-shadow: 0 0 8px rgba(255, 153, 0, 0.4);
-    /* Leichter Glow */
+.radio-option input[type="radio"]:checked + label {
+    border-color: var(--color-accent); /* Akzentfarbe als Rand */
+    background-color: #fff3e0; /* Leichter Akzent-Hintergrund */
+    color: var(--color-text-primary); /* Textfarbe bleibt gleich */
+    box-shadow: 0 0 8px rgba(255, 153, 0, 0.4); /* Leichter Schatten */
 }
 
-/* --- Abstände für Überschriften und Inputs --- */
-h3 {
-    /* Deine h3-Überschriften */
-    margin-top: 30px;
-    /* Mehr Abstand nach oben */
-    margin-bottom: 15px;
-    /* Abstand zu den Inputs/Radio-Buttons */
-    color: var(--color-text-primary);
-    font-size: 1.2rem;
+/* Spezifisches Styling für die 'Wer wird versichert?' Gruppe */
+#who_options {
+    display: flex;         /* Aktiviert Flexbox */
+    justify-content: space-between; /* Verteilt Elemente mit Raum dazwischen und an den Enden */
+    gap: 15px;             /* Abstand zwischen den Optionen */
+    margin-bottom: 30px;   /* Abstand zur nächsten Sektion */
+    flex-wrap: wrap;       /* Erlaubt Elementen, in die nächste Zeile umzubrechen */
+    align-items: center;   /* Zentriert Elemente vertikal */
 }
 
-/* Styling für deine Selects und Inputs */
+/* Allgemeine Styling für die 'Ja/Nein'-Gruppen, die linksbündig starten */
+.job-input,
+.damage-input {
+    display: flex;         /* Aktiviert Flexbox */
+    gap: 15px;             /* Abstand zwischen den Optionen */
+    margin-bottom: 30px;   /* Abstand zur nächsten Sektion */
+    flex-wrap: wrap;       /* Erlaubt Elementen, in die nächste Zeile umzubrechen */
+    justify-content: flex-start; /* Startet die Elemente am Anfang der Zeile */
+    align-items: center;   /* Zentriert Elemente vertikal */
+}
+
+/* --- Styling für Datums- und PLZ/Ort-Inputs --- */
 .birthdate-selects,
 .zip-container {
-    display: flex;
-    gap: 10px;
-    /* Abstand zwischen den Feldern */
-    margin-bottom: 30px;
-    /* Abstand zur nächsten Sektion */
-    flex-wrap: wrap;
-    /* Für responsive */
+    display: flex;         /* Aktiviert Flexbox für die Anordnung */
+    gap: 10px;             /* Abstand zwischen den Feldern */
+    margin-bottom: 30px;   /* Abstand zur nächsten Sektion */
+    flex-wrap: wrap;       /* Erlaubt Umbruch auf kleinere Bildschirme */
+    justify-content: flex-start; /* Ordnet die Felder am Anfang der Zeile an */
 }
 
+/* Allgemeine Styling-Regeln für die einzelnen Select- und Input-Felder (Datum und PLZ/Ort) */
 .birth,
 .zip {
-    background-color: var(--color-accent-2);
-    flex-grow: 1;
-    /* Elemente füllen den verfügbaren Platz */
-    min-width: 120px;
-    /* Mindestbreite, damit sie nicht zu klein werden */
+    background-color: var(--color-accent-2); /* Hintergrundfarbe */
+    flex-grow: 1;          /* Erlaubt den Feldern, proportional zu wachsen */
+    min-width: 120px;      /* Minimale Breite, bevor sie umbrechen */
+    padding: 12px;         /* Innenabstand */
+    border-radius: 10px;   /* Abgerundete Ecken */
+    border: 1px solid #D1D5DB; /* Standard-Rahmen */
+    font-weight: bold;     /* Fetter Text */
+    box-sizing: border-box; /* Stellt sicher, dass Padding und Border in der Breite enthalten sind */
 }
 
-/* Entferne die alten Border-Styles von den job- und damage-Containern,
-   da das Label jetzt den Border bekommt */
-.damage-yes-container,
-.damage-no-container,
-.job-yes-container,
-.job-no-container {
-    border: none;
-    /* Entferne die Border, die jetzt auf dem Label ist */
-    padding: 0;
-    /* Entferne Padding, das jetzt auf dem Label ist */
-}
-
+/* --- Buttons Styling --- */
 #bStart,
 #bMonthly,
 #bReset {
-    outline: none;
-    cursor: pointer;
-    border: none;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: 0.05rem;
-    padding: 0.9rem 2rem;
-    margin: 10px auto;
-    border-radius: 500px;
-    position: relative;
-    display: block;
-    width: 80%;
-    max-width: 300px;
-    background: var(--color-accent);
-    color: black;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    outline: none;         /* Entfernt den Outline-Effekt beim Fokus */
+    cursor: pointer;       /* Zeigt an, dass der Button klickbar ist */
+    border: none;          /* Entfernt Standard-Rahmen */
+    font-family: 'Inter', sans-serif; /* Einheitliche Schriftart */
+    font-weight: 700;      /* Fettes Schriftgewicht */
+    font-size: 16px;       /* Schriftgröße */
+    letter-spacing: 0.05rem; /* Leichter Buchstabenabstand */
+    padding: 0.9rem 2rem;  /* Innenabstand */
+    margin: 10px auto;     /* Vertikale Margins und horizontale Zentrierung */
+    border-radius: 500px;  /* Stark abgerundete Ecken (Pill-Form) */
+    position: relative;    /* Für eventuelle Pseudo-Elemente */
+    display: block;        /* Nimmt die volle Breite ein */
+    width: 80%;            /* Breite des Buttons */
+    max-width: 300px;      /* Maximale Breite des Buttons */
+    background: var(--color-accent); /* Hintergrundfarbe des Buttons */
+    color: black;          /* Textfarbe */
+    transition: all 0.3s ease-in-out; /* Sanfter Übergang für Hover/Active-Effekte */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
 }
 
+/* Hover-Effekt für die Buttons */
 #bStart:hover,
 #bMonthly:hover,
 #bReset:hover {
-    background-color: var(--color-card);
-    color: var(--color-accent);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+    background-color: var(--color-card); /* Hintergrund ändert sich beim Hover */
+    color: var(--color-accent); /* Textfarbe ändert sich beim Hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Schatten wird tiefer */
+    transform: translateY(-2px); /* Button bewegt sich leicht nach oben */
 }
 
-#bMonthly.is-hidden,
-#bReset.is-hidden {
-    display: none;
-}
-
+/* Aktiver (geklickter) Zustand der Buttons */
 #bStart:active,
 #bReset:active,
 #bMonthly:active {
-    transform: scale(0.97);
+    transform: scale(0.97); /* Button wird leicht verkleinert, simuliert einen Klick */
 }
 
-#who_options {
-    display: flex;
-    align-items: center;
+/* Klasse zum Ausblenden von Elementen */
+.is-hidden {
+    display: none !important; /* Versteckt Element vollständig (mit !important zur Überschreibung) */
 }
 
-#who_options {
-    /* Dein bestehender Container für die ersten 4 Radio-Buttons */
-    display: flex;
-    justify-content: space-around;
-    /* Für gleichmäßige Verteilung */
-    gap: 15px;
-    /* Abstand zwischen den Optionen */
-    margin-bottom: 30px;
-    /* Abstand zur nächsten Sektion */
-    flex-wrap: wrap;
-    /* Wichtig für Responsive Design: erlauben, dass Elemente umbrechen */
-}
-
-/* Deine job-input und damage-input Container brauchen auch Flexbox */
-.job-input,
-.damage-input {
-    display: flex;
-    gap: 15px;
-    /* Abstand zwischen Ja/Nein Buttons */
-    margin-bottom: 30px;
-    /* Abstand zur nächsten Sektion */
-    flex-wrap: wrap;
-}
-
-.damage-input,
-.job-input {
-    display: flex;
-    gap: 10px
-}
-
-.damage-yes-container,
-.damage-no-container,
-.job-yes-container,
-.job-no-container {
-    border: solid var(--color-accent);
-    border-style: solid;
-    border-radius: 10px;
-    padding: 12px;
-
-}
-
-.in1,
-#jobYes,
-#jobNo,
-#damageYes,
-#damageNo {
-    cursor: pointer;
-}
-
-.birth,
-.zip {
-    font-weight: bold;
-    margin: 0.5%;
-    padding: 12px;
-    border-radius: 10px;
-    border: 1px solid #D1D5DB;
-}
+/* --- Ergebnisbereich Styling --- */
 #result {
-    display: flex;
-    flex-direction: column; /* Inhalt vertikal anordnen (Text über Preis) */
-    align-items: center; /* Horizontale Zentrierung der Elemente */
-    justify-content: center; /* Vertikale Zentrierung (falls genügend Platz) */
-    text-align: center; /* Text innerhalb der Elemente zentrieren */
+    display: flex;             /* Aktiviert Flexbox für den Inhalt (Text und Preis) */
+    flex-direction: column;    /* Inhalt vertikal anordnen (Text über Preis) */
+    align-items: center;       /* Horizontale Zentrierung der Elemente */
+    justify-content: center;   /* Vertikale Zentrierung (falls genügend Platz) */
+    text-align: center;        /* Text innerhalb der Elemente zentrieren */
 
-    /* Visuelle Hervorhebung */
-    background-color: var(--color-accent-2); /* Klares Weiß, damit es strahlt */
-    border: 3px solid var(--color-accent); /* Ein dickerer, akzentuierter Rand */
-    border-radius: 12px; /* Etwas runder als die Main-Box, wirkt weicher */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Tieferer, auffälligerer Schatten */
+    background-color: var(--color-accent-2); /* Hintergrundfarbe */
+    border: 3px solid var(--color-accent); /* Akzentuierter Rand */
+    border-radius: 12px;       /* Abgerundete Ecken */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Auffälliger Schatten */
 
-    /* Positionierung und Abstände */
-    margin: 40px auto; /* Mehr Abstand zur umgebenden Main-Box und zentriert */
-    padding: 30px; /* Etwas mehr Innenabstand */
-    width: auto; /* Breite automatisch anpassen */
-    max-width: 600px; /* Eine maximale Breite, falls der Inhalt zu schmal ist */
+    margin: 40px auto;         /* Vertikale Margins und horizontale Zentrierung */
+    padding: 30px;             /* Innenabstand */
+    width: auto;               /* Breite automatisch anpassen */
+    max-width: 600px;          /* Maximale Breite */
 
-    /* Animation beim Erscheinen */
-    opacity: 0;
-    transform: translateY(30px) scale(0.9); /* Start: etwas tiefer, leicht verkleinert */
-    visibility: hidden;
-    transition: all 0.6s ease-out; /* Längerer und sanfterer Übergang */
+    opacity: 0;                /* Standardmäßig unsichtbar */
+    transform: translateY(30px) scale(0.9); /* Startposition für die Animation */
+    visibility: hidden;        /* Versteckt das Element vor dem Screenreader */
+    transition: all 0.6s ease-out; /* Sanfter Übergang für die Erscheinungs-Animation */
 }
 
+/* Klasse, die das Ergebnis sichtbar macht und animiert */
 #result.is-visible {
-    opacity: 1;
-    transform: translateY(0) scale(1); /* End: Normalposition, volle Größe */
-    visibility: visible;
+    opacity: 1;                /* Vollständig sichtbar */
+    transform: translateY(0) scale(1); /* Endposition der Animation */
+    visibility: visible;       /* Macht das Element für Screenreader sichtbar */
 }
 
-/* Anpassung der Texte innerhalb der Ergebnisbox */
-/* Du hast nur Text und Price, keine separaten Klassen für den beschreibenden Text,
-   daher muss der erste Teil des Ergebnis-Strings (wenn er kein Error ist)
-   entweder direkt gestylt werden oder wir geben ihm eine eigene Span-Klasse in JS.
-   Fürs Erste stylen wir den Container etwas allgemeiner und den Preis spezifisch. */
-
-.result-text { /* Dies ist für den Text im #result-Div, wenn er nicht der Preis ist */
-    font-size: 1.3rem; /* Größerer beschreibender Text */
-    font-weight: normal;
-    color: var(--color-text-primary);
-    margin-bottom: 12px; /* Abstand zum Preis */
+/* Styling für den beschreibenden Text im Ergebnisbereich */
+.result-text {
+    font-size: 1.3rem;         /* Schriftgröße */
+    font-weight: normal;       /* Normales Schriftgewicht */
+    color: var(--color-text-primary); /* Textfarbe */
+    margin-bottom: 12px;       /* Abstand zum Preis */
 }
 
+/* Styling für den Preis im Ergebnisbereich */
 .result-price {
-    font-size: 3.2rem; /* Sehr groß und dominierend */
-    font-weight: 700; /* Extra fett für den Preis */
-    color: var(--color-accent); /* Deine Akzentfarbe */
-    margin-left: 0; /* Entfernen, da es jetzt vertikal zentriert wird */
-    margin-top: 5px; /* Etwas Abstand zum Text darüber */
+    font-size: 3.2rem;         /* Sehr große Schriftgröße */
+    font-weight: 700;          /* Extra fettes Schriftgewicht */
+    color: var(--color-accent); /* Akzentfarbe */
+    margin-top: 5px;           /* Abstand zum Text darüber */
 }
 
-.error-text { /* Deine bestehende Fehlertext-Klasse */
-    color: var(--color-text-error);
-    font-weight: bold;
-    font-size: 1.4rem; /* Fehlertext auch größer, um Aufmerksamkeit zu erregen */
+/* Styling für Fehlermeldungen */
+.error-text {
+    color: var(--color-text-error); /* Spezielle Farbe für Fehler */
+    font-weight: bold;         /* Fettes Schriftgewicht */
+    font-size: 1.4rem;         /* Auffällige Schriftgröße */
 }
 
-
-/* --- RESPONSIVE DESIGN ANPASSUNGEN --- */
+/* --- RESPONSIVE DESIGN ANPASSUNGEN (ab max-width: 768px) --- */
 @media screen and (max-width: 768px) {
-
     /* Allgemeine Anpassungen für den Hauptinhalt */
     body {
         font-size: 1em; /* Grundschriftgröße für bessere Lesbarkeit auf kleinen Bildschirmen */
     }
 
     main {
-        max-width: 95%; /* Etwas breiter auf kleinen Bildschirmen, um mehr Platz zu nutzen */
-        margin: 20px auto;
-        padding: 15px;
+        max-width: 95%;      /* Etwas breiter auf kleinen Bildschirmen */
+        margin: 20px auto;   /* Angepasste Margins */
+        padding: 15px;       /* Angepasstes Padding */
     }
 
     /* Header-Anpassungen */
     header {
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-        gap: 10px; /* Abstand zwischen Logo und Text im mobilen Header */
-        margin-top: 20px; /* Etwas weniger Abstand nach oben */
-        margin-bottom: 10px; /* Etwas weniger Abstand nach unten */
+        flex-direction: column; /* Logo und Text untereinander stapeln */
+        text-align: center;     /* Inhalt zentrieren */
+        align-items: center;    /* Elemente horizontal zentrieren */
+        gap: 10px;              /* Reduzierter Abstand */
+        margin-top: 20px;       /* Angepasste Margins */
+        margin-bottom: 10px;
     }
 
     .logo {
-        width: 200px; /* Logo auf Handy etwas kleiner */
+        width: 200px;           /* Logo auf Handy etwas kleiner */
     }
 
     .header-text h1 {
-        font-size: 1.6em; /* Überschrift verkleinern */
+        font-size: 1.6em;       /* Überschrift verkleinern */
     }
 
-    .header-text h2 { /* Slogan */
-        font-size: 0.9em; /* Slogan verkleinern */
+    .header-text h2 {
+        font-size: 0.9em;       /* Slogan verkleinern */
         margin-top: 5px;
     }
 
     /* Überschriften im Main-Bereich anpassen */
     h3 {
-        font-size: 1.1em;
-        margin-top: 25px; /* Etwas weniger vertikaler Abstand */
+        font-size: 1.1em;       /* Schriftgröße anpassen */
+        margin-top: 25px;       /* Angepasste Margins */
         margin-bottom: 10px;
     }
 
     /* --- Anpassungen für Radio-Button-Gruppen und Input-Felder --- */
 
-    /* Die Container für die Radio-Button-Gruppen */
+    /* Die Container für die Radio-Button-Gruppen stapeln sich vertikal */
     #who_options,
     .job-input,
     .damage-input {
         flex-direction: column; /* Optionen untereinander stapeln */
-        gap: 10px; /* Abstand zwischen den gestapelten Optionen */
-        margin-bottom: 20px; /* Etwas weniger Abstand zur nächsten Sektion */
+        gap: 10px;              /* Abstand zwischen gestapelten Optionen */
+        margin-bottom: 20px;    /* Abstand zur nächsten Sektion */
     }
 
-    /* Die einzelnen Radio-Optionen (div.radio-option) */
+    /* Die einzelnen Radio-Optionen nehmen volle Breite ein */
     .radio-option {
-        width: 100%; /* Jede Option nimmt die volle Breite ein */
-        /* min-width: auto; */ /* Reset falls eine Desktop-min-width stört */
+        width: 100%;            /* Jede Option nimmt die volle Breite ein */
     }
 
-    /* Die Labels innerhalb der Radio-Optionen */
+    /* Die Labels innerhalb der Radio-Optionen anpassen */
     .radio-option label {
-        padding: 10px 15px; /* Padding auf Handy etwas anpassen */
-        font-size: 0.95em; /* Schriftgröße anpassen */
+        padding: 10px 15px;     /* Padding auf Handy anpassen */
+        font-size: 0.95em;      /* Schriftgröße anpassen */
     }
 
-    /* Die Dropdowns für Datum und die Text-Inputs für PLZ/Ort */
+    /* Die Dropdowns für Datum und die Text-Inputs für PLZ/Ort werden horizontal angeordnet */
     .birthdate-selects,
     .zip-container {
-        flex-direction: column; /* Elemente untereinander stapeln */
-        gap: 10px; /* Abstand zwischen den gestapelten Elementen */
-        margin-bottom: 20px; /* Etwas weniger Abstand zur nächsten Sektion */
+        flex-direction: row;        /* Elemente in einer Reihe anordnen */
+        flex-wrap: wrap;            /* Erlaube Umbruch, wenn der Platz nicht ausreicht */
+        justify-content: flex-start; /* Elemente am Anfang der Zeile ausrichten (deine Präferenz) */
+        gap: 8px;                   /* Kleinerer Abstand zwischen den Elementen */
+        margin-bottom: 20px;        /* Angepasster Abstand */
     }
 
-    .birth,
+    /* Styling für die einzelnen Datum-Selektoren im responsiven Design */
+    .birth {
+        flex: 1 1 auto;         /* Flexibel wachsen und schrumpfen */
+        min-width: 80px;        /* Mindestbreite */
+        max-width: 150px;       /* Max-Breite, damit sie nicht zu breit werden */
+        box-sizing: border-box; /* Padding und Border in Breite inkludieren */
+    }
+
+    /* Styling für die einzelnen PLZ/Ort-Inputs im responsiven Design */
     .zip {
-        width: 100%; /* Dropdowns/Inputs volle Breite */
-        box-sizing: border-box; /* Sicherstellen, dass Padding zur Breite gehört */
-        margin: 0; /* Entferne eventuelle Margins, wenn width: 100% ist */
+        flex: 1 1 auto;         /* Flexibel wachsen und schrumpfen */
+        min-width: 120px;       /* Mindestbreite für PLZ/Ort-Felder */
+        max-width: 180px;       /* Max-Breite für PLZ/Ort-Felder */
+        box-sizing: border-box; /* Padding und Border in Breite inkludieren */
     }
 
     /* Buttons anpassen */
-    #bStart, #bMonthly, #bReset {
-        width: 90%; /* Buttons auf Handy etwas breiter */
+    #bStart,
+    #bMonthly,
+    #bReset {
+        width: 90%;             /* Buttons auf Handy etwas breiter */
         padding: 0.8rem 1.5rem; /* Padding anpassen */
-        font-size: 1em;
-        margin-top: 15px; /* Etwas weniger Abstand zwischen den Buttons */
+        font-size: 1em;         /* Schriftgröße anpassen */
+        margin-top: 15px;       /* Angepasster Abstand */
     }
-    #bStart + #bMonthly, #bMonthly + #bReset { /* Abstand zwischen den Buttons */
+
+    /* Abstand zwischen den Buttons */
+    /* HINWEIS: Selektoren konsolidiert, um Duplizierung zu vermeiden. */
+    #bStart + #bMonthly,
+    #bMonthly + #bReset {
         margin-top: 10px;
     }
 
+    /* Ergebnisbereich im responsiven Design anpassen */
     #result {
-        margin: 30px auto; /* Etwas weniger Margin auf Handy */
-        padding: 25px;
-        max-width: 90%; /* Auf Handy auch eine Max-Breite */
+        margin: 30px auto;      /* Angepasste Margins */
+        padding: 25px;          /* Angepasstes Padding */
+        max-width: 90%;         /* Maximale Breite auf Handy */
     }
+
     .result-text {
-        font-size: 1.1rem;
+        font-size: 1.1rem;      /* Schriftgröße anpassen */
     }
+
     .result-price {
-        font-size: 2.5rem; /* Preis auf Handy etwas kleiner als Desktop, aber immer noch groß */
+        font-size: 2.5rem;      /* Preis auf Handy etwas kleiner */
     }
+
     .error-text {
-        font-size: 1.2rem;
+        font-size: 1.2rem;      /* Fehlertext Schriftgröße anpassen */
     }
 }
 
-/* Optional: Eine noch kleinere Breakpoint für sehr kleine Handys (z.B. iPhone SE) */
+/* --- RESPONSIVE DESIGN ANPASSUNGEN (ab max-width: 400px - sehr kleine Bildschirme) --- */
 @media screen and (max-width: 400px) {
     header {
         margin-top: 10px;
     }
+
     .header-text h1 {
         font-size: 1.4em;
     }
+
     .header-text h2 {
         font-size: 0.85em;
     }
+
     main {
         padding: 10px;
         margin: 10px auto;
     }
+
     h3 {
         font-size: 1em;
         margin-top: 20px;
         margin-bottom: 8px;
     }
-    #bStart, #bMonthly, #bReset {
+
+    #bStart,
+    #bMonthly,
+    #bReset {
         width: 95%;
         padding: 0.7rem 1rem;
         font-size: 0.9em;
     }
+
     #result {
         margin: 20px auto;
         padding: 20px;
     }
+
     .result-text {
         font-size: 1rem;
     }
+
     .result-price {
         font-size: 2rem;
     }
+
     .error-text {
         font-size: 1.1rem;
     }
