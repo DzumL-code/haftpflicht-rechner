@@ -347,7 +347,7 @@ h3 {
     .zip {
         flex: 1 1 auto;         /* Flexibel wachsen und schrumpfen */
         min-width: 120px;       /* Mindestbreite für PLZ/Ort-Felder */
-        max-width: 175px;       /* Max-Breite für PLZ/Ort-Felder */
+        max-width: 165px;       /* Max-Breite für PLZ/Ort-Felder */
         box-sizing: border-box; /* Padding und Border in Breite inkludieren */
     }
 
