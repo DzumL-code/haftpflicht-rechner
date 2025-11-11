@@ -339,7 +339,7 @@ h3 {
     .birth {
         flex: 1 1 auto;         /* Flexibel wachsen und schrumpfen */
         min-width: 80px;        /* Mindestbreite */
-        max-width: 150px;       /* Max-Breite, damit sie nicht zu breit werden */
+        max-width: 180px;       /* Max-Breite, damit sie nicht zu breit werden */
         box-sizing: border-box; /* Padding und Border in Breite inkludieren */
     }
 
@@ -347,7 +347,7 @@ h3 {
     .zip {
         flex: 1 1 auto;         /* Flexibel wachsen und schrumpfen */
         min-width: 120px;       /* Mindestbreite für PLZ/Ort-Felder */
-        max-width: 180px;       /* Max-Breite für PLZ/Ort-Felder */
+        max-width: 175px;       /* Max-Breite für PLZ/Ort-Felder */
         box-sizing: border-box; /* Padding und Border in Breite inkludieren */
     }
 
