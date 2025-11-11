@@ -52,10 +52,13 @@ Ich habe schon ein paar Ideen, wie man den Rechner noch besser machen könnte:
 ![Haftpflichtrechner Desktop Start](images/desktop_start.png "Startansicht des Rechners auf dem Desktop")
 
 ### Desktop Ansicht mit einem jährlichen Ergebnis
-![Haftpflichtrechner Desktop Ergebnis](images/desktop_ergebnis_jahr.png "Rechner mit ausgefüllten Daten und berechnetem Ergebnis")
+![Haftpflichtrechner Desktop jährliches Ergebnis](images/desktop_ergebnis_jahr.png "Rechner mit ausgefüllten Daten und berechnetem jährlichen Ergebnis")
 
 ### Desktop Ansicht mit einem monatlichen Ergebnis
-![Haftpflichtrechner Desktop Ergebnis](images/desktop_ergebnis_monat.png "Rechner mit ausgefüllten Daten und berechnetem Ergebnis")
+![Haftpflichtrechner Desktop monatliches Ergebnis](images/desktop_ergebnis_monat.png "Rechner mit ausgefüllten Daten und berechnetem monatlichen Ergebnis")
+
+### Desktop Ansicht bei der die Eingabe vom Geburtsdatum vergessen wurde
+![Haftpflichtrechner Desktop fehlerhafte Eingabe](images/desktop_error.png "Rechner mit nicht ausgefüllten Daten und berechnetem Ergebnis")
 
 ### Mobile Ansicht
 ![Haftpflichtrechner Mobile](images/mobile_ansicht.png "Rechner auf einem Smartphone")
