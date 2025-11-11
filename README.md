@@ -23,10 +23,10 @@ Für dieses Projekt habe ich die gängigen Web-Technologien verwendet:
 
 
 **Ein Wort zum Lernweg:**
-Ich bin ein **angehender Auszubildender** und habe mir die Grundlagen der Webentwicklung in meiner Freizeit selbst beigebracht. Bei diesem Projekt hat mich eine Künstliche Intelligenz (ein großes Sprachmodell) als eine Art interaktiver Lehrer und Helfer unterstützt. Sie hat mir geholfen, Dinge zu verstehen, Verbesserungsvorschläge zu machen und den Code sauber zu halten. Mein Grundwissen in Webentwicklung habe ich mir zusätzlich mit Apps wie **Mimo** angeeignet. So konnte ich viel lernen und ein Projekt bauen, das gut funktioniert, während ich gleichzeitig gelernt habe, wie man moderne Hilfsmittel richtig nutzt. Aber alle Entscheidungen und das, was im Code passiert, habe ich selbst verstanden und entschieden.
+Ich bin ein **angehender Auszubildender** und habe mir die Grundlagen der Webentwicklung in meiner Freizeit selbst beigebracht. Bei diesem Projekt hat mich eine Künstliche Intelligenz als eine Art interaktiver Lehrer und Helfer unterstützt. Sie hat mir geholfen, Dinge zu verstehen, Verbesserungsvorschläge zu machen und den Code sauber zu halten. Mein Grundwissen in Webentwicklung habe ich mir zusätzlich mit Apps wie **Mimo** angeeignet. So konnte ich viel lernen und ein Projekt bauen, das gut funktioniert, während ich gleichzeitig gelernt habe, wie man moderne Hilfsmittel richtig nutzt. Aber alle Entscheidungen und das, was im Code passiert, habe ich selbst verstanden und entschieden.
 
 
-## Wie du den Rechner ausprobieren kannst
+## Wie Sie den Rechner ausprobieren können
 
 ### Direkt im Browser
 Du kannst den Rechner ganz einfach hier im Browser testen:
@@ -45,3 +45,17 @@ Ich habe schon ein paar Ideen, wie man den Rechner noch besser machen könnte:
 * **Echte Daten einbinden:** Später wäre es spannend, echte Versicherungsdaten über eine Schnittstelle anzubinden, damit die Prämien ganz realitätsnah sind.
 * **Automatische Tests:** Ich könnte kleine Programme schreiben, die automatisch prüfen, ob alles richtig funktioniert, auch wenn ich am Code etwas ändere.
 * **Für jeden gut nutzbar:** Ich möchte, dass der Rechner auch für Leute mit Einschränkungen gut bedienbar ist. Das nennt man Barrierefreiheit, und die könnte man noch weiter verbessern.
+
+## Screenshots
+
+### Desktop Ansicht 
+![Haftpflichtrechner Desktop Start](images/desktop_start.png "Startansicht des Rechners auf dem Desktop")
+
+### Desktop Ansicht mit einem jährlichen Ergebnis
+![Haftpflichtrechner Desktop Ergebnis](images/desktop_ergebnis_jahr.png "Rechner mit ausgefüllten Daten und berechnetem Ergebnis")
+
+### Desktop Ansicht mit einem monatlichen Ergebnis
+![Haftpflichtrechner Desktop Ergebnis](images/desktop_ergebnis_monat.png "Rechner mit ausgefüllten Daten und berechnetem Ergebnis")
+
+### Mobile Ansicht
+![Haftpflichtrechner Mobile](images/mobile_ansicht.png "Rechner auf einem Smartphone")
