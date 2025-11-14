@@ -29,11 +29,11 @@ Ich bin ein **angehender Auszubildender** und habe mir die Grundlagen der Webent
 ## Wie Sie den Rechner ausprobieren können
 
 ### Direkt im Browser
-Du kannst den Rechner ganz einfach hier im Browser testen:
+Sie können den Rechner ganz einfach hier im Browser testen:
 [**https://dzuml-code.github.io/haftpflicht-rechner/**]
 
 ### Code ansehen
-Den Code findest du in diesem GitHub-Repository:
+Den Code finden Sie in diesem GitHub-Repository:
 [**https://github.com/DzumL-code/haftpflicht-rechner**]
 
  
