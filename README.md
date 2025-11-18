@@ -30,7 +30,7 @@ Ich bin ein **angehender Auszubildender** und habe mir die Grundlagen der Webent
 👉 [Hier im Browser testen](https://dzuml-code.github.io/haftpflicht-rechner/)
 
 ### Code ansehen
-👉 [GitHub-Repository] (https://github.com/DzumL-code/haftpflicht-rechner)
+👉 [GitHub-Repository](https://github.com/DzumL-code/haftpflicht-rechner)
 
  
 ## 💡 Ideen für weitere Entwicklungen
