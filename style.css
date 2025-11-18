@@ -188,9 +188,10 @@ h3 {
 #bStart:hover,
 #bMonthly:hover,
 #bReset:hover {
-    background-color: var(--color-card); /* Hintergrund ändert sich beim Hover */
+    background-color: var(--color-accent-2); /* Hintergrund ändert sich beim Hover */
     color: var(--color-accent); /* Textfarbe ändert sich beim Hover */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Schatten wird tiefer */
+    border: 1px solid var(--color-accent-2);
+    box-shadow: 0 6px 15px 2px rgba(0, 0, 0, 0.2); /* Schatten wird tiefer */
     transform: translateY(-2px); /* Button bewegt sich leicht nach oben */
 }
 
@@ -296,7 +297,6 @@ h3 {
         margin-top: 5px;
     }
 
-    /* Überschriften im Main-Bereich anpassen */
     h3 {
         font-size: 1.1em;       /* Schriftgröße anpassen */
         margin-top: 25px;       /* Angepasste Margins */
@@ -305,7 +305,6 @@ h3 {
 
     /* --- Anpassungen für Radio-Button-Gruppen und Input-Felder --- */
 
-    /* Die Container für die Radio-Button-Gruppen stapeln sich vertikal */
     #who_options,
     .job-input,
     .damage-input {
@@ -314,18 +313,15 @@ h3 {
         margin-bottom: 20px;    /* Abstand zur nächsten Sektion */
     }
 
-    /* Die einzelnen Radio-Optionen nehmen volle Breite ein */
     .radio-option {
         width: 100%;            /* Jede Option nimmt die volle Breite ein */
     }
 
-    /* Die Labels innerhalb der Radio-Optionen anpassen */
     .radio-option label {
         padding: 10px 15px;     /* Padding auf Handy anpassen */
         font-size: 0.95em;      /* Schriftgröße anpassen */
     }
 
-    /* Die Dropdowns für Datum und die Text-Inputs für PLZ/Ort werden horizontal angeordnet */
     .birthdate-selects,
     .zip-container {
         flex-direction: row;        /* Elemente in einer Reihe anordnen */
@@ -335,7 +331,6 @@ h3 {
         margin-bottom: 20px;        /* Angepasster Abstand */
     }
 
-    /* Styling für die einzelnen Datum-Selektoren im responsiven Design */
     .birth {
         flex: 1 1 auto;         /* Flexibel wachsen und schrumpfen */
         min-width: 80px;        /* Mindestbreite */
@@ -343,7 +338,6 @@ h3 {
         box-sizing: border-box; /* Padding und Border in Breite inkludieren */
     }
 
-    /* Styling für die einzelnen PLZ/Ort-Inputs im responsiven Design */
     .zip {
         flex: 1 1 auto;         /* Flexibel wachsen und schrumpfen */
         min-width: 120px;       /* Mindestbreite für PLZ/Ort-Felder */
@@ -351,7 +345,6 @@ h3 {
         box-sizing: border-box; /* Padding und Border in Breite inkludieren */
     }
 
-    /* Buttons anpassen */
     #bStart,
     #bMonthly,
     #bReset {
@@ -361,14 +354,11 @@ h3 {
         margin-top: 15px;       /* Angepasster Abstand */
     }
 
-    /* Abstand zwischen den Buttons */
-    /* HINWEIS: Selektoren konsolidiert, um Duplizierung zu vermeiden. */
     #bStart + #bMonthly,
     #bMonthly + #bReset {
         margin-top: 10px;
     }
 
-    /* Ergebnisbereich im responsiven Design anpassen */
     #result {
         margin: 30px auto;      /* Angepasste Margins */
         padding: 25px;          /* Angepasstes Padding */

@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Verhinderung, dass Buchstaben in die PLZ eingetragen werden können.
     postInput.addEventListener('input', () => postInput.value = postInput.value.replace(/[^0-9]/g, ''));
-    
+
     // Namen der Radio-Gruppen (für einfaches Speichern und Laden aus localStorage).
     const radioGroupNames = ['a1', 'jobStatus', 'damageStatus'];
 
@@ -170,10 +170,22 @@ document.addEventListener('DOMContentLoaded', function () {
         // Erstellt einen Datumsstring im Format "YYYY-MM-DD".
         // Beim Monat wird 1 abgezogen, da JavaScript-Date-Objekte Monate von 0 (Januar) bis 11 (Dezember) zählen.
 
-        if (!birthDaySelect.value || !birthMonthSelect.value || !birthYearSelect.value) {
-            resultBox.innerHTML = `<p class="error-text">Bitte geben Sie Ihr <strong>Geburtsdatum</strong> ein!</p>`;
+        // Überprüfung ob ein Tag, Monat oder Jahreszahl ausgewählt wurde, wenn nicht, Code wird beendet.
+        if (!birthDaySelect.value) {
+            resultBox.innerHTML = `<p class="error-text">Bitte geben Sie Ihren <strong>Geburtstag</strong> ein!</p>`;
             resultBox.classList.add('is-visible');
-            return; // Beendet die Funktion, wenn das Geburtsdatum unvollständig ist.
+            birthDaySelect.focus();
+            return;
+        } else if (!birthMonthSelect.value) {
+            resultBox.innerHTML = `<p class="error-text">Bitte geben Sie Ihren <strong>Geburtsmonat</strong> ein!</p>`;
+            resultBox.classList.add('is-visible');
+            birthMonthSelect.focus();
+            return;
+        } else if (!birthYearSelect.value) {
+            resultBox.innerHTML = `<p class="error-text">Bitte geben Sie Ihr <strong>Geburtsjahr</strong> ein!</p>`;
+            resultBox.classList.add('is-visible');
+            birthYearSelect.focus();
+            return;
         }
 
         const birthDate = new Date(birthValue); // Erstellt ein Date-Objekt aus dem erfassten Geburtsdatum.
@@ -194,13 +206,20 @@ document.addEventListener('DOMContentLoaded', function () {
             basicPrice *= RISK_FACTOR_U25;
         }; // Erhöht den Preis um 20% als Risiko-Aufschlag für Personen unter 25 Jahren.
 
-        // Wohnort Prüfung und PLZ-Aufschläge.
-        const postValue = postInput.value; // Holt den Wert der eingegebenen Postleitzahl.
-
+        // Wohnort Prüfung/PLZ-Validierung/PLZ-Aufschläge
+        const postValue = postInput.value.trim(); // Holt den Wert der eingegebenen Postleitzahl.
         if (!postValue) {
             resultBox.innerHTML = `<p class="error-text">Bitte geben Sie Ihre <strong>Postleitzahl</strong> ein!</p>`;
             resultBox.classList.add('is-visible');
+            postInput.focus();
             return; // Beendet die Funktion, wenn keine Postleitzahl angegeben wurde.
+        }
+        // Überprüfung der PLZ
+        if (postValue.length !== 5) { // Es wird überprüft ob die PLZ aus genau 5 Zeichen besteht.
+            resultBox.innerHTML = `<p class="error-text">Bitte geben Sie eine gültige <strong>5-stellige Postleitzahl</strong> ein!</p>`;
+            postInput.focus();
+            resultBox.classList.add('is-visible');
+            return;
         }
 
         if (ZIP_BERLIN.some(plz => postValue.startsWith(plz))) {
@@ -293,6 +312,12 @@ document.addEventListener('DOMContentLoaded', function () {
         resultBox.innerHTML = ''; // Löscht den Inhalt der Ergebnisbox.
         resultBox.classList.remove('is-visible'); // Blendet die Ergebnisbox aus.
         btnMonthly.classList.add('is-hidden'); // Blendet den Monats-/Jahres-Button aus.
-        localStorage.clear(); // Löscht alle gespeicherten Daten im Browser.
+        // Löscht alle gespeicherten Daten im Browser.
+        localStorage.removeItem('userBirthdate');
+        localStorage.removeItem('userPostcode');
+        localStorage.removeItem('userCity');
+        localStorage.removeItem('a1');
+        localStorage.removeItem('jobStatus');
+        localStorage.removeItem('damageStatus');
     }
 });
